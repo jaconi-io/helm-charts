@@ -8,7 +8,7 @@ all: $(packages) index
 clean:
 	rm -rf out/
 
-index: out/index.yaml
+index: out/index.html out/index.yaml
 
 lint: $(charts)
 	helm lint $(charts)
@@ -18,3 +18,6 @@ out/%.tgz: %
 
 out/index.yaml: out/
 	helm repo index out/
+
+out/index.html: index.html
+	cp index.html out/
