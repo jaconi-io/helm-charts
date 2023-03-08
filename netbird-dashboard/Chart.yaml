@@ -1,0 +1,17 @@
+apiVersion: v2
+name: netbird-dashboard
+description: UI for the NetBird VPN management platform
+type: application
+version: 0.1.0
+appVersion: "v1.8.0"
+annotations:
+  artifacthub.io/category: networking
+  artifacthub.io/license: MIT
+  artifacthub.io/prerelease: "true"
+  artifacthub.io/screenshots: |
+    - title: Auth
+      url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/auth.png
+    - title: Peers
+      url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/peers.png
+    - title: Add Peer
+      url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/add-peer.png
