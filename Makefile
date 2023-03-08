@@ -8,7 +8,7 @@ all: $(packages) index
 clean:
 	rm -rf out/
 
-index: out/index.html out/index.yaml
+index: out/index.html out/index.yaml out/artifacthub-repo.yml
 
 lint: $(charts)
 	helm lint $(charts)
@@ -21,3 +21,6 @@ out/index.yaml: out/
 
 out/index.html: index.html
 	cp index.html out/
+
+out/artifacthub-repo.yml: artifacthub-repo.yml
+	cp artifacthub-repo.yml out/
