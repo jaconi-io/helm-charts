@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "netbird-management.fullname" . }}
+  labels:
+    {{- include "netbird-management.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "netbird-management.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "netbird-management.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "netbird-management.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: configure
+          image: golang:latest
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/sh", "-c"]
+          args:
+            - >
+              go install github.com/drone/envsubst/cmd/envsubst@latest &&
+              envsubst < /tmp/netbird/management.tmpl.json > /etc/netbird/management.json &&
+              cat /etc/netbird/management.json
+          env:
+            - name: NETBIRD_DOMAIN
+              value: {{ .Values.domain }}
+            - name: NETBIRD_AUTH_OIDC_CONFIGURATION_ENDPOINT
+              value: "{{ .Values.auth.authority }}/.well-known/openid-configuration"
+          volumeMounts:
+            - mountPath: /etc/netbird
+              name: config
+            - mountPath: /tmp/netbird
+              name: config-template
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /etc/netbird
+              name: config
+            - mountPath: /var/lib/netbird
+              name: management
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: config
+          emptyDir:
+            medium: Memory
+        - name: config-template
+          configMap:
+            name: {{ include "netbird-management.fullname" . }}
+        - name: management
+          {{- if .Values.persistentVolume.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "netbird-management.fullname" . }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
