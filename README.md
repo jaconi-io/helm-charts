@@ -17,7 +17,7 @@ kind create cluster --config kind.yaml
 Start [Keycloak](https://www.keycloak.org):
 
 ```
-docker compose up
+docker compose up --detach
 ```
 
 Install the Helm charts for testing:

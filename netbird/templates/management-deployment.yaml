@@ -104,11 +104,11 @@ spec:
             medium: Memory
         - name: config-template
           configMap:
-            name: {{ include "netbird.fullname" . }}
+            name: {{ include "netbird.fullname" . }}-management
         - name: management
           {{- if .Values.management.persistentVolume.enabled }}
           persistentVolumeClaim:
-            claimName: {{ include "netbird.fullname" . }}
+            claimName: {{ include "netbird.fullname" . }}-management
           {{- else }}
           emptyDir: {}
           {{- end }}
