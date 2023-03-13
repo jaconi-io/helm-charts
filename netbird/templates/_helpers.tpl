@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "netbird-management.name" -}}
+{{- define "netbird.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "netbird-management.fullname" -}}
+{{- define "netbird.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "netbird-management.chart" -}}
+{{- define "netbird.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
-Common labels
+Common management labels
 */}}
-{{- define "netbird-management.labels" -}}
-helm.sh/chart: {{ include "netbird-management.chart" . }}
-{{ include "netbird-management.selectorLabels" . }}
+{{- define "netbird.management.labels" -}}
+helm.sh/chart: {{ include "netbird.chart" . }}
+{{ include "netbird.management.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -43,20 +43,20 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
-Selector labels
+Management selector labels
 */}}
-{{- define "netbird-management.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "netbird-management.name" . }}
+{{- define "netbird.management.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "netbird.name" . }}-management
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Create the name of the service account to use
+Create the name of the management service account to use
 */}}
-{{- define "netbird-management.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "netbird-management.fullname" .) .Values.serviceAccount.name }}
+{{- define "netbird.management.serviceAccountName" -}}
+{{- if .Values.management.serviceAccount.create }}
+{{- default (printf "%s-management" (include "netbird.fullname" .)) .Values.management.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{- default "default" .Values.management.serviceAccount.name }}
 {{- end }}
 {{- end }}
