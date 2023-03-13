@@ -1,0 +1,32 @@
+{{- if .Values.services.udp.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "coturn.fullname" . }}-udp
+  {{- with .Values.services.udp.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "coturn.labels" . | nindent 4 }}
+spec:
+  externalTrafficPolicy: {{ .Values.services.udp.externalTrafficPolicy }}
+  type: {{ .Values.services.udp.type }}
+  ports:
+    - port: {{ .Values.services.udp.ports.plain }}
+      targetPort: udp
+      protocol: UDP
+      name: udp
+      {{- if eq .Values.services.udp.type "NodePort" }}
+      nodePort: {{ .Values.services.udp.nodePorts.plain }}
+      {{- end }}
+    - port: {{ .Values.services.udp.ports.tls }}
+      targetPort: udp-tls
+      protocol: UDP
+      name: udp-tls
+      {{- if eq .Values.services.udp.type "NodePort" }}
+      nodePort: {{ .Values.services.udp.nodePorts.tls }}
+      {{- end }}
+  selector:
+    {{- include "coturn.selectorLabels" . | nindent 4 }}
+{{- end -}}
