@@ -1,0 +1,32 @@
+{{- if .Values.services.tcp.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "coturn.fullname" . }}-tcp
+  {{- with .Values.services.tcp.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "coturn.labels" . | nindent 4 }}
+spec:
+  externalTrafficPolicy: {{ .Values.services.tcp.externalTrafficPolicy }}
+  type: {{ .Values.services.tcp.type }}
+  ports:
+    - port: {{ .Values.services.tcp.ports.plain }}
+      targetPort: tcp
+      protocol: TCP
+      name: tcp
+      {{- if eq .Values.services.tcp.type "NodePort" }}
+      nodePort: {{ .Values.services.tcp.nodePorts.plain }}
+      {{- end }}
+    - port: {{ .Values.services.tcp.ports.tls }}
+      targetPort: tcp-tls
+      protocol: TCP
+      name: tcp-tls
+      {{- if eq .Values.services.tcp.type "NodePort" }}
+      nodePort: {{ .Values.services.tcp.nodePorts.tls }}
+      {{- end }}
+  selector:
+    {{- include "coturn.selectorLabels" . | nindent 4 }}
+{{- end -}}
