@@ -31,6 +31,38 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - --listening-port=3478
+            - --tls-listening-port=5349
+            {{- if .Values.fingerprint }}
+            - --fingerprint
+            {{- end }}
+            {{- if index .Values "lt-cred-mech" }}
+            - --lt-cred-mech
+            {{- end }}
+            {{- range $user := .Values.users }}
+            - --user={{ $user.name }}:$({{ printf "COTURN_USER_%s_KEY" $user.name }})
+            {{- end }}
+            {{- if .Values.cert }}
+            - --cert={{ .Values.cert }}
+            {{- end }}
+            {{- if .Values.pkey }}
+            - --pkey={{ .Values.pkey }}
+            {{- end }}
+            - --realm={{ .Values.realm }}
+            - --log-file=stdout
+            - --no-software-attribute
+            - --no-cli
+          {{- with .Values.users }}
+          env:
+            {{- range $user := . }}
+            - name: {{ printf "COTURN_USER_%s_KEY" $user.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secretKeyRef.name }}
+                  key: {{ .secretKeyRef.key }}
+            {{- end }}
+          {{- end }}
           ports:
             - name: tcp
               containerPort: 3478
@@ -44,13 +76,20 @@ spec:
             - name: udp-tls
               containerPort: 5349
               protocol: UDP
+          livenessProbe:
+            tcpSocket:
+              port: tcp
+            initialDelaySeconds: 30
+            failureThreshold: 3
+          readinessProbe:
+            tcpSocket:
+              port: tcp
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /etc/turnserver.conf
               name: config
               subPath: turnserver.conf
-      hostNetwork: true
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -63,6 +102,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "topology.kubernetes.io/zone"
+          whenUnsatisfiable: ScheduleAnyway
       volumes:
         - name: config
           configMap:
