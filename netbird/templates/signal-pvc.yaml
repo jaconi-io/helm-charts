@@ -1,0 +1,14 @@
+{{- if .Values.signal.persistentVolume.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "netbird.fullname" . }}-signal
+  labels:
+    {{- include "netbird.signal.labels" . | nindent 4 }}
+spec:
+  accessModes:
+{{ toYaml .Values.signal.persistentVolume.accessModes | indent 4 }}
+  resources:
+    requests:
+      storage: "{{ .Values.signal.persistentVolume.size }}"
+{{- end -}}

@@ -1,9 +1,9 @@
-{{- if .Values.ingress.enabled -}}
-{{- $fullName := include "netbird-signal.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
-{{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
-  {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
-  {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
+{{- if .Values.signal.ingress.enabled -}}
+{{- $fullName := printf "%s-signal" (include "netbird.fullname" .) -}}
+{{- $svcPort := .Values.signal.service.port -}}
+{{- if and .Values.signal.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey .Values.signal.ingress.annotations "kubernetes.io/ingress.class") }}
+  {{- $_ := set .Values.signal.ingress.annotations "kubernetes.io/ingress.class" .Values.signal.ingress.className}}
   {{- end }}
 {{- end }}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -17,18 +17,18 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "netbird-signal.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
+    {{- include "netbird.signal.labels" . | nindent 4 }}
+  {{- with .Values.signal.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
-  ingressClassName: {{ .Values.ingress.className }}
+  {{- if and .Values.signal.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.signal.ingress.className }}
   {{- end }}
-  {{- if .Values.ingress.tls }}
+  {{- if .Values.signal.ingress.tls }}
   tls:
-    {{- range .Values.ingress.tls }}
+    {{- range .Values.signal.ingress.tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
@@ -37,7 +37,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.ingress.hosts }}
+    {{- range .Values.signal.ingress.hosts }}
     - host: {{ .host | quote }}
       http:
         paths:
