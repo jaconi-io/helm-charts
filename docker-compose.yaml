@@ -1,0 +1,29 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:21.0
+    command:
+      - start
+      - --import-realm
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_HOSTNAME_STRICT=false
+      - KC_HOSTNAME_STRICT_HTTPS=false
+      - KC_HTTP_PORT=9000
+      - KC_PROXY=edge
+    ports:
+      - "9000:9000"
+    networks:
+      kind:
+        aliases:
+          - keycloak.localtest.me
+    volumes:
+      - type: bind
+        source: ./keycloak-realm.json
+        target: /opt/keycloak/data/import/realm.json
+        read_only: true
+
+networks:
+  kind:
+    name: kind
+    external: true

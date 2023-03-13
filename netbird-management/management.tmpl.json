@@ -11,7 +11,7 @@
         "Turns": [
             {
                 "Proto": "udp",
-                "URI": "turn:${NETBIRD_DOMAIN:-}:3478",
+                "URI": "turn:${NETBIRD_DOMAIN}:3478",
                 "Username": "${NETBIRD_TURN_USER:-self}",
                 "Password": "${NETBIRD_TURN_PASSWORD:-}"
             }
@@ -22,27 +22,30 @@
     },
     "Signal": {
         "Proto": "http",
-        "URI": "${NETBIRD_DOMAIN:-example.com}:10000",
+        "URI": "${NETBIRD_DOMAIN}:10000",
         "Username": "",
         "Password": null
     },
     "Datadir": "",
     "HttpConfig": {
-        "Address": "0.0.0.0:${NETBIRD_MGMT_API_PORT:-33073}",
-        "AuthAudience": "${NETBIRD_AUTH_AUDIENCE:-}",
+        "Address": "0.0.0.0:80",
+        "AuthAudience": "${NETBIRD_AUTH_AUDIENCE}",
         "AuthUserIDClaim": "${NETBIRD_AUTH_USER_ID_CLAIM:-sub}",
-        "CertFile": "${NETBIRD_MGMT_API_CERT_FILE:-/etc/letsencrypt/live/${NETBIRD_DOMAIN:-example.com}/fullchain.pem}",
-        "CertKey": "${NETBIRD_MGMT_API_CERT_KEY_FILE:-/etc/letsencrypt/live/${NETBIRD_DOMAIN:-example.com}/privkey.pem}",
-        "OIDCConfigEndpoint": "${NETBIRD_AUTH_OIDC_CONFIGURATION_ENDPOINT:-https://example.com/.well-known/openid-configuration}"
+        "CertFile": "${NETBIRD_MGMT_API_CERT_FILE}",
+        "CertKey": "${NETBIRD_MGMT_API_CERT_KEY_FILE}",
+        "OIDCConfigEndpoint": "${NETBIRD_AUTH_OIDC_CONFIGURATION_ENDPOINT}"
     },
     "IdpManagerConfig": {
         "Manager": "none"
     },
     "DeviceAuthorizationFlow": {
-        "Provider": "${NETBIRD_AUTH_DEVICE_AUTH_PROVIDER:-none}",
+        "Provider": "${NETBIRD_AUTH_DEVICE_AUTH_PROVIDER}",
         "ProviderConfig": {
-            "Audience": "${NETBIRD_AUTH_AUDIENCE:-}",
-            "ClientID": "${NETBIRD_AUTH_DEVICE_AUTH_CLIENT_ID:-}"
+            "Audience": "${NETBIRD_AUTH_DEVICE_AUTH_AUDIENCE}",
+            "ClientID": "${NETBIRD_AUTH_DEVICE_AUTH_CLIENT_ID}",
+            "DeviceAuthEndpoint": "${NETBIRD_AUTH_DEVICE_AUTH_DEVICE_AUTHORIZATION_ENDPOINT}",
+            "Domain": "${NETBIRD_AUTH_DEVICE_AUTH_AUTHORITY}",
+            "TokenEndpoint": "${NETBIRD_AUTH_DEVICE_AUTH_TOKEN_ENDPOINT}"
         }
     }
 }
