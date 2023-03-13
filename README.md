@@ -43,7 +43,7 @@ done
 Forward the NetBird management server to port `8081`:
 
 ```
-kubectl port-forward -n netbird-management service/netbird-management 8081:80
+kubectl port-forward -n netbird service/netbird-management 8081:80
 ```
 
 Forward the NetBird dashboard to port `8080`:

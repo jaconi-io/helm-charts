@@ -1,37 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "netbird-management.fullname" . }}
+  name: {{ include "netbird.fullname" . }}-management
   labels:
-    {{- include "netbird-management.labels" . | nindent 4 }}
+    {{- include "netbird.management.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+  {{- if not .Values.management.autoscaling.enabled }}
+  replicas: {{ .Values.management.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "netbird-management.selectorLabels" . | nindent 6 }}
+      {{- include "netbird.management.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
-        checksum/config: {{ include (print .Template.BasePath "/cm.yaml") . | sha256sum }}
-        {{- with .Values.podAnnotations }}
+        checksum/config: {{ include (print .Template.BasePath "/management-cm.yaml") . | sha256sum }}
+        {{- with .Values.management.podAnnotations }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "netbird-management.selectorLabels" . | nindent 8 }}
+        {{- include "netbird.management.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- with .Values.management.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "netbird-management.serviceAccountName" . }}
+      serviceAccountName: {{ include "netbird.management.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml .Values.management.podSecurityContext | nindent 8 }}
       initContainers:
         - name: configure
           image: golang:latest
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.management.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
           args:
             - >
@@ -71,30 +71,30 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+            {{- toYaml .Values.management.securityContext | nindent 12 }}
+          image: "{{ .Values.management.image.repository }}:{{ .Values.management.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.management.image.pullPolicy }}
           args: ["--log-level", "debug"]
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.management.service.port }}
               protocol: TCP
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.management.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /etc/netbird
               name: config
             - mountPath: /var/lib/netbird
               name: management
-      {{- with .Values.nodeSelector }}
+      {{- with .Values.management.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.affinity }}
+      {{- with .Values.management.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.tolerations }}
+      {{- with .Values.management.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -104,11 +104,11 @@ spec:
             medium: Memory
         - name: config-template
           configMap:
-            name: {{ include "netbird-management.fullname" . }}
+            name: {{ include "netbird.fullname" . }}
         - name: management
-          {{- if .Values.persistentVolume.enabled }}
+          {{- if .Values.management.persistentVolume.enabled }}
           persistentVolumeClaim:
-            claimName: {{ include "netbird-management.fullname" . }}
+            claimName: {{ include "netbird.fullname" . }}
           {{- else }}
           emptyDir: {}
           {{- end }}
