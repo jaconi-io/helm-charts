@@ -39,10 +39,7 @@ spec:
             - name: AUTH_AUTHORITY
               value: {{ .Values.auth.authority }}
             - name: AUTH_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.auth.clientIDSecret.name }}
-                  key: {{ .Values.auth.clientIDSecret.key }}
+              value: {{ .Values.auth.clientID }}
             - name: AUTH_SUPPORTED_SCOPES
               value: {{ .Values.auth.supportedScopes }}
             - name: USE_AUTH0

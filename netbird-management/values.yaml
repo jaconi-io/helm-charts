@@ -3,9 +3,18 @@
 # Declare variables to be passed into your templates.
 
 auth:
-  authority: https://example.com
+  audience: account
+  authority: http://keycloak.localtest.me:9000/realms/helm-charts
+  device:
+    provider: none
+    # provider: hosted
+    # audience: account
+    # authority: http://keycloak.localtest.me:9000/realms/helm-charts
+    # clientID: netbird-management
+    # deviceAuthorizationEndpoint: http://keycloak.localtest.me:9000/realms/helm-charts/protocol/openid-connect/auth/device
+    # tokenEndpoint: http://keycloak.localtest.me:9000/realms/helm-charts/protocol/openid-connect/token
 
-domain: example.com
+domain: localtest.me
 
 replicaCount: 1
 

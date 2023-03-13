@@ -2,17 +2,12 @@
 
 auth:
   ## @param auth.authority Authority to use for authentication. Must expose a .well-known/oidc-configuration endpoint.
-  authority: https://example.com
+  authority: http://keycloak.localtest.me:9000/realms/helm-charts
 
   ## @param auth.audience Audience of the authentication tokens.
-  audience: ""
+  audience: "netbird-dashboard"
 
-  clientIDSecret:
-    ## @param auth.clientIDSecret.name Name of the secret containing the client ID.
-    name: netbird-dashboard-client-id
-
-    ## @param auth.clientIDSecret.key Key of the secret containing the client ID.
-    key: clientID
+  clientID: netbird-dashboard
 
   ## @param auth.supportedScopes Supported OpenID scopes
   # - Auth0: openid profile email offline_access api email_verified
@@ -26,7 +21,7 @@ auth:
 
 netbird:
   ## @param netbird.managementApiEndpoint
-  managementApiEndpoint: https://netbird.ipc.wandelbots.io
+  managementApiEndpoint: http://localtest.me:8081
 
 ## @section Common configuration
 ## @descriptionStart

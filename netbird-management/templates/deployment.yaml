@@ -13,10 +13,11 @@ spec:
       {{- include "netbird-management.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        checksum/config: {{ include (print .Template.BasePath "/cm.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         {{- include "netbird-management.selectorLabels" . | nindent 8 }}
     spec:
@@ -42,6 +43,26 @@ spec:
               value: {{ .Values.domain }}
             - name: NETBIRD_AUTH_OIDC_CONFIGURATION_ENDPOINT
               value: "{{ .Values.auth.authority }}/.well-known/openid-configuration"
+            - name: NETBIRD_MGMT_API_CERT_FILE
+              value: ""
+            - name: NETBIRD_MGMT_API_CERT_KEY_FILE
+              value: ""
+            - name: NETBIRD_AUTH_AUDIENCE
+              value: {{ .Values.auth.audience }}
+            - name: NETBIRD_AUTH_DEVICE_AUTH_PROVIDER
+              value: {{ .Values.auth.device.provider }}
+            {{- if eq .Values.auth.device.provider "hosted" }}
+            - name: NETBIRD_AUTH_DEVICE_AUTH_AUDIENCE
+              value: "{{ .Values.auth.device.audience }}"
+            - name: NETBIRD_AUTH_DEVICE_AUTH_AUTHORITY
+              value: "{{ .Values.auth.device.authority }}"
+            - name: NETBIRD_AUTH_DEVICE_AUTH_CLIENT_ID
+              value: "{{ .Values.auth.device.clientID }}"
+            - name: NETBIRD_AUTH_DEVICE_AUTH_DEVICE_AUTHORIZATION_ENDPOINT
+              value: "{{ .Values.auth.device.deviceAuthorizationEndpoint }}"
+            - name: NETBIRD_AUTH_DEVICE_AUTH_TOKEN_ENDPOINT
+              value: "{{ .Values.auth.device.tokenEndpoint }}"
+            {{- end }}
           volumeMounts:
             - mountPath: /etc/netbird
               name: config
@@ -53,18 +74,11 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: ["--log-level", "debug"]
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
