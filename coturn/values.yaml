@@ -51,29 +51,14 @@ securityContext:
   runAsNonRoot: true
   runAsUser: 65534 # nobody
 
-services:
-  tcp:
-    enabled: true
-    annotations: {}
-    externalTrafficPolicy: Local
-    type: NodePort
-    ports:
-      plain: 3478
-      tls: 5349
-    nodePorts:
-      plain: 31478
-      tls: 31349
-  udp:
-    enabled: true
-    annotations: {}
-    externalTrafficPolicy: Local
-    type: NodePort
-    ports:
-      plain: 3478
-      tls: 5349
-    nodePorts:
-      plain: 31479
-      tls: 31350
+service:
+  annotations: {}
+  # externalTrafficPolicy: Local
+  # type: LoadBalancer
+  type: ClusterIP
+  ports:
+    plain: 3478
+    tls: 5349
 
 resources:
   limits:
