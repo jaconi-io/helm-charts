@@ -43,11 +43,16 @@ spec:
             {{- range $user := .Values.users }}
             - --user={{ $user.name }}:$({{ printf "COTURN_USER_%s_KEY" $user.name }})
             {{- end }}
+            {{- if .Values.certificate.enabled }}
+            - --cert=/usr/local/etc/tls.crt
+            - --pkey=/usr/local/etc/tls.key
+            {{- else }}
             {{- if .Values.cert }}
             - --cert={{ .Values.cert }}
             {{- end }}
             {{- if .Values.pkey }}
             - --pkey={{ .Values.pkey }}
+            {{- end }}
             {{- end }}
             - --realm={{ .Values.realm }}
             - --log-file=stdout
@@ -90,6 +95,8 @@ spec:
             - mountPath: /etc/turnserver.conf
               name: config
               subPath: turnserver.conf
+            - mountPath: /usr/local/etc
+              name: certs
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -110,3 +117,6 @@ spec:
         - name: config
           configMap:
             name: {{ include "coturn.fullname" . }}
+        - name: certs
+          secret:
+            secretName: {{ include "coturn.fullname" . }}

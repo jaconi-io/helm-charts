@@ -14,6 +14,12 @@ pkey: ~
 #       name: users-secret
 #       key: username1-password
 
+# cert-manager certificate. cert and pkey values will be ignored!
+certificate:
+  enabled: false
+  dnsName: coturn.example.com
+  issuerName: letsencrypt
+
 replicaCount: 2
 
 image:
