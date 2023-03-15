@@ -2,9 +2,12 @@ apiVersion: v2
 name: coturn
 description: Coturn TURN server
 type: application
-version: 0.1.0
+version: 0.2.0
 appVersion: "4.6.1-r2"
 annotations:
   artifacthub.io/category: networking
   artifacthub.io/license: MIT
   artifacthub.io/prerelease: "true"
+  artifacthub.io/changes: |
+    - kind: added
+      description: cert-manager support
