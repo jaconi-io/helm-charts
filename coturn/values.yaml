@@ -20,6 +20,14 @@ certificate:
   dnsName: coturn.example.com
   issuerName: letsencrypt
 
+traefik:
+  enabled: false
+  entryPoints:
+    tcp: tcp
+    tcp-tls: tcp-tls
+    udp: udp
+    udp-tls: udp-tls
+
 replicaCount: 2
 
 image:
