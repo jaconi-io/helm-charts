@@ -9,7 +9,8 @@ spec:
   entryPoints:
     - {{ index .Values.traefik.entryPoints "tcp" }}
   routes:
-    - services:
+    - match: HostSNI(`*`)
+      services:
         - name: {{ include "coturn.fullname" . }}
           port: tcp
 ---
@@ -23,7 +24,8 @@ spec:
   entryPoints:
     - {{ index .Values.traefik.entryPoints "tcp-tls" }}
   routes:
-    - services:
+    - match: HostSNI(`*`)
+      services:
         - name: {{ include "coturn.fullname" . }}
           port: tcp-tls
 ---
