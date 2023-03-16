@@ -32,6 +32,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
+            - --listening-ip=0.0.0.0
+            - "--listening-ip=::"
             - --listening-port=3478
             - --tls-listening-port=5349
             {{- if .Values.fingerprint }}
