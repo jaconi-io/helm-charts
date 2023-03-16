@@ -60,6 +60,9 @@ spec:
             - --log-file=stdout
             - --no-software-attribute
             - --no-cli
+            {{- range $extraOption := .Values.extraOptions }}
+            - {{ $extraOption }}
+            {{- end }}
           {{- with .Values.users }}
           env:
             {{- range $user := . }}
