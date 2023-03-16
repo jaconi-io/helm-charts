@@ -41,7 +41,7 @@ spec:
             - --lt-cred-mech
             {{- end }}
             {{- range $user := .Values.users }}
-            - --user={{ $user.name }}:$({{ printf "COTURN_USER_%s_KEY" $user.name }})
+            - --user={{ $user.name }}:$${{ printf "COTURN_USER_%s_KEY" $user.name }}
             {{- end }}
             {{- if .Values.certificate.enabled }}
             - --cert=/usr/local/etc/tls.crt
