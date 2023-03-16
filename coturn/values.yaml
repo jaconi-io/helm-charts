@@ -9,7 +9,7 @@ cert: ~
 pkey: ~
 
 extraOptions: []
-  # - --Verbose
+  # - --verbose
   # - --prometheus
   # ...
 
