@@ -2,7 +2,7 @@ apiVersion: v2
 name: coturn
 description: Coturn TURN server
 type: application
-version: 0.4.0
+version: 0.5.0
 appVersion: "4.6.1-r2"
 annotations:
   artifacthub.io/category: networking
@@ -10,8 +10,4 @@ annotations:
   artifacthub.io/prerelease: "true"
   artifacthub.io/changes: |
     - kind: added
-      description: traefik support
-    - kind: added
-      description: missing match in traefik TCP ingress route
-    - kind: added
-      description: listen on all IP addresses
+      description: extra options

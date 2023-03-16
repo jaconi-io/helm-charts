@@ -8,6 +8,11 @@ realm: example.com
 cert: ~
 pkey: ~
 
+extraOptions: []
+  # - --Verbose
+  # - --prometheus
+  # ...
+
 # users:
 #   - name: username1
 #     secretKeyRef:
