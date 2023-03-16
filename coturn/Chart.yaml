@@ -2,7 +2,7 @@ apiVersion: v2
 name: coturn
 description: Coturn TURN server
 type: application
-version: 0.5.3
+version: 0.6.0
 appVersion: "4.6.1-r2"
 annotations:
   artifacthub.io/category: networking

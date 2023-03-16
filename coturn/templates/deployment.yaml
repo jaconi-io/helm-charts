@@ -2,6 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "coturn.fullname" . }}
+  {{- with .Values.deploymentAnnotation }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   labels:
     {{- include "coturn.labels" . | nindent 4 }}
 spec:
