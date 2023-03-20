@@ -46,6 +46,8 @@ spec:
               value: "false"
             - name: NETBIRD_MGMT_API_ENDPOINT
               value: {{ .Values.netbird.managementApiEndpoint }}
+            - name: NETBIRD_MGMT_GRPC_API_ENDPOINT
+              value: {{ .Values.netbird.managementGrpcApiEndpoint }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

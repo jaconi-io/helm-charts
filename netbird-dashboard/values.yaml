@@ -23,6 +23,9 @@ netbird:
   ## @param netbird.managementApiEndpoint
   managementApiEndpoint: http://localtest.me:8081
 
+  ## @param netbird.managementGrpcApiEndpoint
+  managementGrpcApiEndpoint: http://localtest.me:8081
+
 ## @section Common configuration
 ## @descriptionStart
 ## This section contains parameters, that are common for most Helm charts.
