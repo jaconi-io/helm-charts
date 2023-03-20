@@ -8,7 +8,7 @@ spec:
   type: {{ .Values.signal.service.type }}
   ports:
     - port: {{ .Values.signal.service.port }}
-      targetPort: http
+      targetPort: grpc
       protocol: TCP
       name: http
   selector:
