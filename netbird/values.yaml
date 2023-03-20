@@ -14,6 +14,9 @@ auth:
     # deviceAuthorizationEndpoint: http://keycloak.localtest.me:9000/realms/helm-charts/protocol/openid-connect/auth/device
     # tokenEndpoint: http://keycloak.localtest.me:9000/realms/helm-charts/protocol/openid-connect/token
 
+signal:
+  uri: stun:example.com:10000
+
 stun:
   uri: stun:example.com:3478
 
@@ -23,8 +26,6 @@ turn:
   # secretKeyRef:
   #   name: turn-credentials
   #   key: password
-
-domain: localtest.me
 
 nameOverride: ""
 fullnameOverride: ""

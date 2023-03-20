@@ -43,8 +43,8 @@ spec:
               envsubst < /tmp/netbird/management.tmpl.json > /etc/netbird/management.json &&
               cat /etc/netbird/management.json
           env:
-            - name: NETBIRD_DOMAIN
-              value: {{ .Values.domain }}
+            - name: NETBIRD_SIGNAL_URI
+              value: {{ .Values.signal.uri }}
             - name: NETBIRD_STUN_URI
               value: {{ .Values.stun.uri }}
             - name: NETBIRD_TURN_URI

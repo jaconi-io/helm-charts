@@ -22,7 +22,7 @@
     },
     "Signal": {
         "Proto": "http",
-        "URI": "${NETBIRD_DOMAIN}:10000",
+        "URI": "${NETBIRD_SIGNAL_URI}",
         "Username": "",
         "Password": null
     },
