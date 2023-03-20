@@ -93,7 +93,7 @@ spec:
             {{- toYaml .Values.management.securityContext | nindent 12 }}
           image: "{{ .Values.management.image.repository }}:{{ .Values.management.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.management.image.pullPolicy }}
-          args: ["--log-level", "debug"]
+          args: ["--log-level", "{{ .Values.management.logLevel }}"]
           ports:
             - name: http
               containerPort: {{ .Values.management.service.port }}

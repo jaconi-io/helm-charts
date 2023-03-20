@@ -33,6 +33,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.signal.image.repository }}:{{ .Values.signal.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.signal.image.pullPolicy }}
+          args: ["--log-level", "{{ .Values.signal.logLevel }}"]
           ports:
             - name: grpc
               containerPort: {{ .Values.signal.service.port }}
