@@ -21,7 +21,7 @@
         "TimeBasedCredentials": false
     },
     "Signal": {
-        "Proto": "http",
+        "Proto": "https",
         "URI": "${NETBIRD_SIGNAL_URI}",
         "Username": "",
         "Password": null
