@@ -41,6 +41,21 @@ spec:
           env:
             - name: NETBIRD_DOMAIN
               value: {{ .Values.domain }}
+            - name: NETBIRD_STUN_URI
+              value: {{ .Values.stun.uri }}
+            - name: NETBIRD_TURN_URI
+              value: {{ .Values.turn.uri }}
+            {{- with .Values.turn.user }}
+            - name: NETBIRD_TURN_USER
+              value: {{ . }}
+            {{- end }}
+            {{- with .Values.turn.secretKeyRef }}
+            - name: NETBIRD_TURN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .name }}
+                  key: {{ .key }}
+            {{- end }}
             - name: NETBIRD_AUTH_OIDC_CONFIGURATION_ENDPOINT
               value: "{{ .Values.auth.authority }}/.well-known/openid-configuration"
             - name: NETBIRD_MGMT_API_CERT_FILE

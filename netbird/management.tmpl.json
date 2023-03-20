@@ -2,7 +2,7 @@
     "Stuns": [
         {
             "Proto": "udp",
-            "URI": "stun:${NETBIRD_DOMAIN:-example.com}:3478",
+            "URI": "${NETBIRD_STUN_URI}",
             "Username": "",
             "Password": null
         }
@@ -11,9 +11,9 @@
         "Turns": [
             {
                 "Proto": "udp",
-                "URI": "turn:${NETBIRD_DOMAIN}:3478",
-                "Username": "${NETBIRD_TURN_USER:-self}",
-                "Password": "${NETBIRD_TURN_PASSWORD:-}"
+                "URI": "${NETBIRD_TURN_URI}",
+                "Username": "${NETBIRD_TURN_USER}",
+                "Password": "${NETBIRD_TURN_PASSWORD}"
             }
         ],
         "CredentialsTTL": "12h",
