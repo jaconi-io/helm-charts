@@ -70,6 +70,8 @@ spec:
               value: {{ .Values.auth.audience }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_PROVIDER
               value: {{ .Values.auth.device.provider }}
+            - name: NETBIRD_AUTH_USER_ID_CLAIM
+              value: {{ .Values.auth.userIDClaim }}
             {{- if eq .Values.auth.device.provider "hosted" }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_AUDIENCE
               value: "{{ .Values.auth.device.audience }}"
