@@ -1,3 +1,4 @@
+{{/* Create Traefik (https://traefik.io) resources. */}}
 {{- if .Values.traefik.enabled -}}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRouteTCP
