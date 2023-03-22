@@ -7,9 +7,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-03-22T09:00:46.037676825Z"
+    created: "2023-03-22T09:02:08.992549287Z"
     description: Coturn TURN server
-    digest: 4cbd131dadf65d45f189ea95256231a0b53e3f461a98a2b5a113c265ce0b37b3
+    digest: b4c326f31ed129500ba42f5d4acc7a96676d9a0322b55c951596e861aff5341b
     name: coturn
     type: application
     urls:
@@ -22,9 +22,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-03-22T09:00:46.038429209Z"
+    created: "2023-03-22T09:02:08.9933179Z"
     description: NetBird VPN management platform
-    digest: 76a3a3fc1c254565a6fac642bba33f8d85be4ed06e9465f4e5973a8dd4603d0e
+    digest: b44fb23c017dd5ec9f12a68817070195d1546b9bf50a3c74923a4cab30a15ac4
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird
     type: application
@@ -45,13 +45,13 @@ entries:
           url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/add-peer.png
     apiVersion: v2
     appVersion: v1.8.0
-    created: "2023-03-22T09:00:46.038975598Z"
+    created: "2023-03-22T09:02:08.99387731Z"
     description: UI for the NetBird VPN management platform
-    digest: 7216f633f6ae17cf89385cf59fd482b0173ff4e6702790cf1740d1aa9c5710f3
+    digest: 8848a954107a1df58d36c2adb70b1647109612051f92fa7ae188d553fbc8ebd1
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird-dashboard
     type: application
     urls:
     - netbird-dashboard-0.2.0.tgz
     version: 0.2.0
-generated: "2023-03-22T09:00:46.036665247Z"
+generated: "2023-03-22T09:02:08.991526769Z"
