@@ -36,6 +36,14 @@ jobs:
       - name: lint
         run: make lint
 
+      - name: Generate README.md
+        run: |
+          npm install -g @bitnami/readme-generator-for-helm
+          for f in */README.md; do
+            chart=$(dirname $f)
+            readme-generator --values "${chart}/values.yaml" --readme "$f"
+          done
+
       - name: package
         run: make
 
