@@ -1,4 +1,4 @@
-# coturn
+# netbird
 
 Helm chart for [NetBird](https://github.com/netbirdio/netbird) VPN management platform.
 
