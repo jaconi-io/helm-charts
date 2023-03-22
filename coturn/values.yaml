@@ -166,6 +166,7 @@ image:
   ##
   pullPolicy: Always
 
+  # yamllint disable-line rule:line-length
   ## @param image.tag Overrides the image tag whose default is the chart appVersion.
   ##
   tag: ""
@@ -183,14 +184,17 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
+  # yamllint disable-line rule:line-length
   ## @param serviceAccount.create Specifies whether a service account should be created.
   ##
   create: true
 
+  # yamllint disable-line rule:line-length
   ## @param serviceAccount.annotations Annotations to add to the service account.
   ##
   annotations: {}
 
+  # yamllint disable-line rule:line-length
   ## @param serviceAccount.name The name of the service account to use. If not set and create is true, a
   ## name is generated using the fullname template.
   ##

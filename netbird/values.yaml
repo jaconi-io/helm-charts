@@ -63,6 +63,7 @@ management:
     ##
     pullPolicy: IfNotPresent
 
+    # yamllint disable-line rule:line-length
     ## @param management.image.tag Overrides the image tag whose default is the chart appVersion.
     ##
     tag: ""
@@ -71,22 +72,27 @@ management:
   imagePullSecrets: []
 
   serviceAccount:
+    # yamllint disable-line rule:line-length
     ## @param management.serviceAccount.create Specifies whether a service account should be created.
     ##
     create: true
 
+    # yamllint disable-line rule:line-length
     ## @param management.serviceAccount.annotations Annotations to add to the service account.
     ##
     annotations: {}
 
+    # yamllint disable-line rule:line-length
     ## @param management.serviceAccount.name The name of the service account to use.
     ##
     name: ""
 
+  # yamllint disable-line rule:line-length
   ## @param management.deploymentAnnotations Annotations to add to the management deployment.
   ##
   deploymentAnnotations: {}
 
+  # yamllint disable-line rule:line-length
   ## @param management.podAnnotations Annotations to add to the management pod(s).
   ##
   podAnnotations: {}
@@ -235,6 +241,7 @@ signal:
     ##
     pullPolicy: IfNotPresent
 
+    # yamllint disable-line rule:line-length
     ## @param signal.image.tag Overrides the image tag whose default is the chart appVersion.
     ##
     tag: ""
@@ -243,10 +250,12 @@ signal:
   imagePullSecrets: []
 
   serviceAccount:
+    # yamllint disable-line rule:line-length
     ## @param signal.serviceAccount.create Specifies whether a service account should be created.
     ##
     create: true
 
+    # yamllint disable-line rule:line-length
     ## @param signal.serviceAccount.annotations Annotations to add to the service account.
     ##
     annotations: {}
@@ -255,6 +264,7 @@ signal:
     ##
     name: ""
 
+  # yamllint disable-line rule:line-length
   ## @param signal.deploymentAnnotations Annotations to add to the signal deployment.
   ##
   deploymentAnnotations: {}
