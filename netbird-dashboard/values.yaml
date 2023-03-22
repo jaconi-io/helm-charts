@@ -2,13 +2,14 @@
 ## @section Authorization
 
 auth:
-  ## @param auth.authority Authority to use for authentication. Must expose a
-  ## .well-known/oidc-configuration endpoint.
+  # yamllint disable-line rule:line-length
+  ## @param auth.authority Authority to use for authentication. Must expose a .well-known/oidc-configuration endpoint.
   authority: http://keycloak.localtest.me:9000/realms/helm-charts
 
   ## @param auth.audience Audience of the authentication tokens.
   audience: "netbird-dashboard"
 
+  ## @param auth.clientID OpenID Connect client ID.
   clientID: netbird-dashboard
 
   ## @param auth.supportedScopes Supported OpenID scopes
@@ -29,6 +30,7 @@ netbird:
   managementGrpcApiEndpoint: http://localtest.me:8081
 
 ## @section Common configuration
+
 ## @descriptionStart
 ## This section contains parameters, that are common for most Helm charts.
 ## @descriptionEnd
