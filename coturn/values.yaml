@@ -235,7 +235,7 @@ securityContext:
 
   ## @param securityContext.runAsUser
   ##
-  runAsUser: 65534 # nobody
+  runAsUser: 65534  # nobody
 
 service:
   ## @param service.annotations Annotations to add to the service.
@@ -248,7 +248,7 @@ service:
 
   ## @param service.type
   ##
-  type: ClusterIP # LoadBalancer
+  type: ClusterIP  # LoadBalancer
 
   ports:
     ## @param service.ports.plain
