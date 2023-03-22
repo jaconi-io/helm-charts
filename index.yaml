@@ -10,9 +10,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-03-22T13:56:25.233164566Z"
+    created: "2023-03-22T14:14:56.579107154Z"
     description: Coturn TURN server
-    digest: 47a2b2e15f6f1046d9d1b13c153704dc7d5e30d4fec05980e16a5828e95241d0
+    digest: 2750f8a76b23cbf8af0a3be373ff3f977d51ca43722570dded05c3aac6dcb662
     name: coturn
     type: application
     urls:
@@ -24,7 +24,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-03-22T13:56:25.232182966Z"
+    created: "2023-03-22T14:14:56.578139152Z"
     description: Coturn TURN server
     digest: b4c326f31ed129500ba42f5d4acc7a96676d9a0322b55c951596e861aff5341b
     name: coturn
@@ -39,9 +39,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-03-22T13:56:25.234035566Z"
+    created: "2023-03-22T14:14:56.579992056Z"
     description: NetBird VPN management platform
-    digest: bd23a56d5d128288bd0e64fb5451d8bcb51408fde395e5d4b6aab8ad507db079
+    digest: 502c4dd85195e73589919c642383f256292c6861b0ee899000fc55fc5fcaffd9
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird
     type: application
@@ -62,13 +62,13 @@ entries:
           url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/add-peer.png
     apiVersion: v2
     appVersion: v1.8.0
-    created: "2023-03-22T13:56:25.234621766Z"
+    created: "2023-03-22T14:14:56.580527057Z"
     description: UI for the NetBird VPN management platform
-    digest: 5a82a88c1fbf4c9001933018619ae092d9c3286a42c028e0660ea43fcdf487fc
+    digest: 69f91934666448f11e090eaf418a6208ea1445055fc527d5e1ccd870ad695ec8
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird-dashboard
     type: application
     urls:
     - netbird-dashboard-0.2.0.tgz
     version: 0.2.0
-generated: "2023-03-22T13:56:25.231119967Z"
+generated: "2023-03-22T14:14:56.57707325Z"
