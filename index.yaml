@@ -10,9 +10,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-03-22T10:43:08.585090791Z"
+    created: "2023-03-22T13:05:14.352812779Z"
     description: Coturn TURN server
-    digest: b5eb2d526a643ff4ee8649c96ec5db31770f753c7f64d664acf6f9c02ef1727b
+    digest: 5013bd02ad94ad9ae7e670f2b4b4f0ad37f68e82c2da0b549e269a2b06eb4377
     name: coturn
     type: application
     urls:
@@ -24,7 +24,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-03-22T10:43:08.584167281Z"
+    created: "2023-03-22T13:05:14.351869272Z"
     description: Coturn TURN server
     digest: b4c326f31ed129500ba42f5d4acc7a96676d9a0322b55c951596e861aff5341b
     name: coturn
@@ -39,9 +39,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-03-22T10:43:08.5859456Z"
+    created: "2023-03-22T13:05:14.353565084Z"
     description: NetBird VPN management platform
-    digest: b7cf036517a47016de502973781aaaab78fcbed3063e2b2b84d23e3a9f6b7f03
+    digest: f84f988caf8be72e8c1eb80844bf6ff849f2d151b0d2a0c14595f1fe54b311a1
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird
     type: application
@@ -62,13 +62,13 @@ entries:
           url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/add-peer.png
     apiVersion: v2
     appVersion: v1.8.0
-    created: "2023-03-22T10:43:08.586524906Z"
+    created: "2023-03-22T13:05:14.354138288Z"
     description: UI for the NetBird VPN management platform
-    digest: 0aab341431e22aaa420164ce433d8097abe338f801e5f2d4d41af08b6763c117
+    digest: bbf7747b75c5722d495932270439cb47285d55932e78ec25867ae64992762816
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird-dashboard
     type: application
     urls:
     - netbird-dashboard-0.2.0.tgz
     version: 0.2.0
-generated: "2023-03-22T10:43:08.582957868Z"
+generated: "2023-03-22T13:05:14.350719464Z"
