@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install yamllint
-        run: apt install yamllint
+        run: sudo apt-get install yamllint
 
       - name: Execute yamllint
         run: yamllint .
