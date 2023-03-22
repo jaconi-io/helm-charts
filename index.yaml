@@ -10,9 +10,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-03-22T14:14:56.579107154Z"
+    created: "2023-03-22T15:57:40.004883138Z"
     description: Coturn TURN server
-    digest: 2750f8a76b23cbf8af0a3be373ff3f977d51ca43722570dded05c3aac6dcb662
+    digest: 2c9ed09bf77127e58082392f633fbdb13e49d8595260f9d91dfff97b528d0e68
     name: coturn
     type: application
     urls:
@@ -24,7 +24,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-03-22T14:14:56.578139152Z"
+    created: "2023-03-22T15:57:40.003922439Z"
     description: Coturn TURN server
     digest: b4c326f31ed129500ba42f5d4acc7a96676d9a0322b55c951596e861aff5341b
     name: coturn
@@ -39,9 +39,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-03-22T14:14:56.579992056Z"
+    created: "2023-03-22T15:57:40.005738737Z"
     description: NetBird VPN management platform
-    digest: 502c4dd85195e73589919c642383f256292c6861b0ee899000fc55fc5fcaffd9
+    digest: 73c4ae12856169e3b0378c06b2f6ec1450997702f10fbc238eae84a741ebc5ae
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird
     type: application
@@ -62,13 +62,13 @@ entries:
           url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/add-peer.png
     apiVersion: v2
     appVersion: v1.8.0
-    created: "2023-03-22T14:14:56.580527057Z"
+    created: "2023-03-22T15:57:40.006268337Z"
     description: UI for the NetBird VPN management platform
-    digest: 69f91934666448f11e090eaf418a6208ea1445055fc527d5e1ccd870ad695ec8
+    digest: 199d20b924d3854bc1e07bbdd2456e6439c7b0ce4290b6f08fbb2c2814c2cd37
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird-dashboard
     type: application
     urls:
     - netbird-dashboard-0.2.0.tgz
     version: 0.2.0
-generated: "2023-03-22T14:14:56.57707325Z"
+generated: "2023-03-22T15:57:40.00288074Z"
