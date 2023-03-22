@@ -33,22 +33,9 @@ jobs:
       - name: lint
         run: make lint
 
-      - uses: actions/configure-pages@v3
-
-      # Download existing Helm chart repository.
-      - uses: actions/download-artifact@v3
-        with:
-          name: github-pages
-          path: "./out/"
-
-      - name: list existing Helm charts
-        run: ls -al ./out/
-
       - name: package
         run: make
 
-      - uses: actions/upload-pages-artifact@v1
+      - uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: "./out/"
-
-      - uses: actions/deploy-pages@v1
+          folder: ./out
