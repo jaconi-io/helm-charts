@@ -33,6 +33,15 @@ jobs:
       - name: lint
         run: make lint
 
+      # Download existing Helm chart repository.
+      - uses: actions/download-artifact@v3
+        with:
+          name: github-pages
+          path: "./out/"
+
+      - name: list existing Helm charts
+        run: ls -al ./out/
+
       - name: package
         run: make
 
