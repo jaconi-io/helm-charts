@@ -1,5 +1,7 @@
 .PHONY: all clean index lint
 
+MAKEFLAGS += rR
+
 charts := $(sort $(dir $(wildcard */Chart.yaml)))
 packages := $(addprefix out/, $(charts:/=.tgz))
 
@@ -22,3 +24,6 @@ out/index.yaml: out/
 out/%: %
 	mkdir -p $(dir $@)
 	cp $< $@
+
+# Disable builtin rules.
+.SUFFIXES:
