@@ -18,7 +18,7 @@ lint: $(charts)
 out/%.tgz: %
 	helm package --destination out $<
 
-out/index.yaml: out/
+out/index.yaml: $(packages)
 	helm repo index out/
 
 out/%: %
