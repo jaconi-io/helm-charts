@@ -14,15 +14,14 @@ certificate:
   issuerName: letsencrypt
 ```
 
-The resulting TLS certificate and private key will be passed to coturn via the `--cert` and `--pkey` flags. The settings
-`cert` and `pkey` will be ignored.
+The resulting TLS certificate and private key will be passed to coturn via the
+`--cert` and `--pkey` flags. The settings `cert` and `pkey` will be ignored.
 
 ## Traefik
 
-When using [Traefik](https://traefik.io), a
-[IngressRouteTCP](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/#kind-ingressroutetcp) and a
-[IngressRouteUDP](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/#kind-ingressrouteudp) resource can be
-created by this chart:
+When using [Traefik](https://traefik.io), a [IngressRouteTCP](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/#kind-ingressroutetcp)
+and a [IngressRouteUDP](https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/#kind-ingressrouteudp)
+resource can be created by this chart:
 
 ```yaml
 traefik:
@@ -34,7 +33,8 @@ traefik:
     udp-tls: udp-tls
 ```
 
-When using the official Traefik Helm chart, the following (or similar) configuration is needed for Traefik:
+When using the official Traefik Helm chart, the following (or similar)
+configuration is needed for Traefik:
 
 ```yaml
 ports:
