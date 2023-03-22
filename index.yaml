@@ -3,18 +3,21 @@ entries:
   coturn:
   - annotations:
       artifacthub.io/category: networking
+      artifacthub.io/changes: |
+        - kind: added
+          description: values.schema.json
       artifacthub.io/license: MIT
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-03-22T09:28:29.911070062Z"
+    created: "2023-03-22T09:47:46.116945144Z"
     description: Coturn TURN server
-    digest: 513f7900a9a84bbd44b82e1692ef41b1dbd5bd6019be96ef1c9dfa4bfc04607d
+    digest: 687c5d92a9038e75bb1f700ae3511dd16733ed8421ca4254a2ffbe83c704ddce
     name: coturn
     type: application
     urls:
-    - coturn-0.6.1.tgz
-    version: 0.6.1
+    - coturn-0.7.0.tgz
+    version: 0.7.0
   netbird:
   - annotations:
       artifacthub.io/category: networking
@@ -22,9 +25,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-03-22T09:28:29.911828264Z"
+    created: "2023-03-22T09:47:46.117795845Z"
     description: NetBird VPN management platform
-    digest: 97bb25ad9d9a0b14a7f1a1b9402da73ad84d865aaa48fcb247c83ce13fd414e1
+    digest: 3dfbba84d13a356bef2301d8c80388a3d8e19148e396d7c7fb9cdf2b3a216d3e
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird
     type: application
@@ -45,13 +48,13 @@ entries:
           url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/add-peer.png
     apiVersion: v2
     appVersion: v1.8.0
-    created: "2023-03-22T09:28:29.912451366Z"
+    created: "2023-03-22T09:47:46.118350145Z"
     description: UI for the NetBird VPN management platform
-    digest: 2cf0f51fbc1f8fe6994f153f3e81e7950b8db18bb21ebe0db08be0445ccd0f5b
+    digest: bfc75236c6b913ac8c641ae76515cae2e4c4f67b5b247e928ba6e707c206db69
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird-dashboard
     type: application
     urls:
     - netbird-dashboard-0.2.0.tgz
     version: 0.2.0
-generated: "2023-03-22T09:28:29.91007466Z"
+generated: "2023-03-22T09:47:46.115814243Z"
