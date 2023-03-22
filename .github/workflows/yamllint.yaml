@@ -1,0 +1,27 @@
+---
+name: yamllint
+
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "**.yml"
+      - "**.yaml"
+
+permissions:
+  contents: read
+
+jobs:
+  yamllint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install yamllint
+        run: apt install yamllint
+
+      - name: Execute yamllint
+        run: yamllint .
