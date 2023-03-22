@@ -1,3 +1,4 @@
+---
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:21.0

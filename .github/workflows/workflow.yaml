@@ -1,5 +1,7 @@
+---
 name: Build and Deploy
 
+# yamllint disable-line rule:truthy
 on:
   push:
     branches: ["main"]

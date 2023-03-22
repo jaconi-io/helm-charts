@@ -1,7 +1,9 @@
+---
 ## @section Authorization
 
 auth:
-  ## @param auth.authority Authority to use for authentication. Must expose a .well-known/oidc-configuration endpoint.
+  ## @param auth.authority Authority to use for authentication. Must expose a
+  ## .well-known/oidc-configuration endpoint.
   authority: http://keycloak.localtest.me:9000/realms/helm-charts
 
   ## @param auth.audience Audience of the authentication tokens.
@@ -54,29 +56,34 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  ## @param serviceAccount.create Specifies whether a service account should be created
+  ## @param serviceAccount.create Specifies whether a service account should be
+  ## created
   create: true
 
   ## @param serviceAccount.annotations Annotations to add to the service account
   annotations: {}
 
   ## @param serviceAccount.name The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
+  # If not set and create is true, a name is generated using the fullname
+  # template
   name: ""
 
 ## @param podAnnotations Annotations for pods
-## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+## ref:
+## https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 podAnnotations: {}
 
 ## Configure Pods Security Context
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+## ref:
+## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext
 podSecurityContext:
   {}
   # fsGroup: 2000
 
 ## Configure Container Security Context
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+## ref:
+## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param securityContext
 securityContext:
   {}
@@ -126,10 +133,11 @@ ingress:
 ## @param resources
 resources:
   {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # We usually recommend not to specify default resources and to leave this as a
+  # conscious choice for the user. This also increases chances charts run on
+  # environments with little resources, such as Minikube. If you do want to
+  # specify resources, uncomment the following lines, adjust them as necessary,
+  # and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 100m
   #   memory: 128Mi

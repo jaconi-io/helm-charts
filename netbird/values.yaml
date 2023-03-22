@@ -1,3 +1,4 @@
+---
 # Default values for netbird.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -9,10 +10,10 @@ auth:
     provider: none
     # provider: hosted
     # audience: account
-    # authority: http://keycloak.localtest.me:9000/realms/helm-charts
+    # authority: https://example.com
     # clientID: netbird-management
-    # deviceAuthorizationEndpoint: http://keycloak.localtest.me:9000/realms/helm-charts/protocol/openid-connect/auth/device
-    # tokenEndpoint: http://keycloak.localtest.me:9000/realms/helm-charts/protocol/openid-connect/token
+    # deviceAuthorizationEndpoint: https://example.com/auth/device
+    # tokenEndpoint: https://example.com/token
 
 stun:
   uri: stun:example.com:3478
@@ -46,17 +47,20 @@ management:
     # Annotations to add to the service account
     annotations: {}
     # The name of the service account to use.
-    # If not set and create is true, a name is generated using the fullname template
+    # If not set and create is true, a name is generated using the fullname
+    # template
     name: ""
 
   deploymentAnnotations: {}
 
   podAnnotations: {}
 
-  podSecurityContext: {}
+  podSecurityContext:
+    {}
     # fsGroup: 2000
 
-  securityContext: {}
+  securityContext:
+    {}
     # capabilities:
     #   drop:
     #   - ALL
@@ -85,11 +89,13 @@ management:
     #    hosts:
     #      - chart-example.local
 
-  resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as
+    # a conscious choice for the user. This also increases chances charts run on
+    # environments with little resources, such as Minikube. If you do want to
+    # specify resources, uncomment the following lines, adjust them as
+    # necessary, and remove the curly braces after 'resources:'.
     # limits:
     #   cpu: 100m
     #   memory: 128Mi
@@ -136,15 +142,18 @@ signal:
     # Annotations to add to the service account
     annotations: {}
     # The name of the service account to use.
-    # If not set and create is true, a name is generated using the fullname template
+    # If not set and create is true, a name is generated using the fullname
+    # template
     name: ""
 
   podAnnotations: {}
 
-  podSecurityContext: {}
+  podSecurityContext:
+    {}
     # fsGroup: 2000
 
-  securityContext: {}
+  securityContext:
+    {}
     # capabilities:
     #   drop:
     #   - ALL
@@ -159,7 +168,8 @@ signal:
   ingress:
     enabled: false
     className: ""
-    annotations: {}
+    annotations:
+      {}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     hosts:
@@ -172,11 +182,13 @@ signal:
     #    hosts:
     #      - chart-example.local
 
-  resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as
+    # a conscious choice for the user. This also increases chances charts run on
+    # environments with little resources, such as Minikube. If you do want to
+    # specify resources, uncomment the following lines, adjust them as
+    # necessary, and remove the curly braces after 'resources:'.
     # limits:
     #   cpu: 100m
     #   memory: 128Mi
