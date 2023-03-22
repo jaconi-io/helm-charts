@@ -1,0 +1,57 @@
+apiVersion: v1
+entries:
+  coturn:
+  - annotations:
+      artifacthub.io/category: networking
+      artifacthub.io/license: MIT
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: 4.6.1-r2
+    created: "2023-03-22T09:00:46.037676825Z"
+    description: Coturn TURN server
+    digest: 4cbd131dadf65d45f189ea95256231a0b53e3f461a98a2b5a113c265ce0b37b3
+    name: coturn
+    type: application
+    urls:
+    - coturn-0.6.1.tgz
+    version: 0.6.1
+  netbird:
+  - annotations:
+      artifacthub.io/category: networking
+      artifacthub.io/license: MIT
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: 0.14.4
+    created: "2023-03-22T09:00:46.038429209Z"
+    description: NetBird VPN management platform
+    digest: 76a3a3fc1c254565a6fac642bba33f8d85be4ed06e9465f4e5973a8dd4603d0e
+    icon: https://avatars.githubusercontent.com/u/100464677
+    name: netbird
+    type: application
+    urls:
+    - netbird-0.5.3.tgz
+    version: 0.5.3
+  netbird-dashboard:
+  - annotations:
+      artifacthub.io/category: networking
+      artifacthub.io/license: MIT
+      artifacthub.io/prerelease: "true"
+      artifacthub.io/screenshots: |
+        - title: Auth
+          url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/auth.png
+        - title: Peers
+          url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/peers.png
+        - title: Add Peer
+          url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/add-peer.png
+    apiVersion: v2
+    appVersion: v1.8.0
+    created: "2023-03-22T09:00:46.038975598Z"
+    description: UI for the NetBird VPN management platform
+    digest: 7216f633f6ae17cf89385cf59fd482b0173ff4e6702790cf1740d1aa9c5710f3
+    icon: https://avatars.githubusercontent.com/u/100464677
+    name: netbird-dashboard
+    type: application
+    urls:
+    - netbird-dashboard-0.2.0.tgz
+    version: 0.2.0
+generated: "2023-03-22T09:00:46.036665247Z"
