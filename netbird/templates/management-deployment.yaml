@@ -90,7 +90,7 @@ spec:
             - mountPath: /tmp/netbird
               name: config-template
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Chart.Name }}-management
           securityContext:
             {{- toYaml .Values.management.securityContext | nindent 12 }}
           image: "{{ .Values.management.image.repository }}:{{ .Values.management.image.tag | default .Chart.AppVersion }}"
