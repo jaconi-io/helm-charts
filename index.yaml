@@ -10,9 +10,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-03-22T16:01:13.769120461Z"
+    created: "2023-03-28T12:55:19.704075895Z"
     description: Coturn TURN server
-    digest: 84a2b6b1c880d6abe8d957eb4e64f0d1948b6f9e9be72a8d4561954f6b03aa8a
+    digest: f5e18fe664f2cf9eb53910915842ea3aa29d8fd823e041717c89b4253aac6172
     name: coturn
     type: application
     urls:
@@ -24,7 +24,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-03-22T16:01:13.767957816Z"
+    created: "2023-03-28T12:55:19.702733815Z"
     description: Coturn TURN server
     digest: b4c326f31ed129500ba42f5d4acc7a96676d9a0322b55c951596e861aff5341b
     name: coturn
@@ -39,9 +39,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-03-22T16:01:13.770297306Z"
+    created: "2023-03-28T12:55:19.705092255Z"
     description: NetBird VPN management platform
-    digest: 207ee4d5c26787f0207496dad23d0491220e034425629cc7662879d53d55d9b4
+    digest: fc89ca018a2a11856b7cf01ad1649fe390356de05c025f11d5622ada4fe4f1ff
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird
     type: application
@@ -62,13 +62,13 @@ entries:
           url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/add-peer.png
     apiVersion: v2
     appVersion: v1.8.0
-    created: "2023-03-22T16:01:13.771017033Z"
+    created: "2023-03-28T12:55:19.705812898Z"
     description: UI for the NetBird VPN management platform
-    digest: 540177009cd0440cae6da6cd06fd37d3984c52f6ca434cb7034a0be92729af42
+    digest: bff6ccc3aa39cdf3af812eb75fbc325a5c2f26a17d3438537494657b1543d2ef
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird-dashboard
     type: application
     urls:
     - netbird-dashboard-0.2.0.tgz
     version: 0.2.0
-generated: "2023-03-22T16:01:13.766471259Z"
+generated: "2023-03-28T12:55:19.70148934Z"
