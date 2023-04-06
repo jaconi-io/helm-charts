@@ -217,6 +217,10 @@ management:
     ##
     size: 100Mi
 
+  ## @param management.singleAccountModeDomain
+  ##
+  singleAccountModeDomain: netbird.selfhosted
+
 ## @section NetBird Signal
 
 signal:

@@ -66,6 +66,10 @@ spec:
               value: ""
             - name: NETBIRD_MGMT_API_CERT_KEY_FILE
               value: ""
+            {{- with .Values.management.singleAccountModeDomain }}
+            - name: NETBIRD_MGMT_API_SINGLE_ACCOUNT_MODE_DOMAIN
+              value: {{ . }}
+            {{- end }}
             - name: NETBIRD_AUTH_AUDIENCE
               value: {{ .Values.auth.audience }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_PROVIDER
