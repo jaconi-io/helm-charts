@@ -95,8 +95,9 @@ spec:
             {{- toYaml .Values.management.securityContext | nindent 12 }}
           image: "{{ .Values.management.image.repository }}:{{ .Values.management.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.management.image.pullPolicy }}
-          args: ["--log-level", "{{ .Values.management.logLevel }}"]
-          command:
+          args:
+            - --log-level
+            - info
             - --single-account-mode-domain
             - {{ .Values.management.singleAccountModeDomain }}
             - --dns-domain
