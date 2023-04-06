@@ -10,9 +10,9 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-04-06T13:31:38.166673769Z"
+    created: "2023-04-06T13:46:54.918331268Z"
     description: Coturn TURN server
-    digest: d16ee89bb1fbf90dc84c0a059b10f6b2f4940e6e088080232100d1058503cb0b
+    digest: a774028b61bedd1f17546d4439e4608bf52b6cf18f6827cf20c9c3774a0e5242
     name: coturn
     type: application
     urls:
@@ -24,7 +24,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 4.6.1-r2
-    created: "2023-04-06T13:31:38.165727459Z"
+    created: "2023-04-06T13:46:54.917431155Z"
     description: Coturn TURN server
     digest: b4c326f31ed129500ba42f5d4acc7a96676d9a0322b55c951596e861aff5341b
     name: coturn
@@ -39,7 +39,22 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-04-06T13:31:38.172620436Z"
+    created: "2023-04-06T13:46:54.924609162Z"
+    description: NetBird VPN management platform
+    digest: eed8edf5122c48c320974e5057d284dfdaf8d4b8bb680ba0e36b954b124ea1d1
+    icon: https://avatars.githubusercontent.com/u/100464677
+    name: netbird
+    type: application
+    urls:
+    - netbird-0.5.9.tgz
+    version: 0.5.9
+  - annotations:
+      artifacthub.io/category: networking
+      artifacthub.io/license: MIT
+      artifacthub.io/prerelease: "true"
+    apiVersion: v2
+    appVersion: 0.14.4
+    created: "2023-04-06T13:46:54.92380165Z"
     description: NetBird VPN management platform
     digest: 41ad2eef2f6c13d60115b6f8c83597efefd106990d3b66f7edbfb7729e8279b5
     icon: https://avatars.githubusercontent.com/u/100464677
@@ -54,7 +69,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-04-06T13:31:38.171801326Z"
+    created: "2023-04-06T13:46:54.92248693Z"
     description: NetBird VPN management platform
     digest: 578e3c09d136dec8be754cfa47006640b2319fcb1c8b8a1ddffba8695e7b5ea7
     icon: https://avatars.githubusercontent.com/u/100464677
@@ -69,7 +84,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-04-06T13:31:38.170957217Z"
+    created: "2023-04-06T13:46:54.921658118Z"
     description: NetBird VPN management platform
     digest: e2aee7a0fb83ca95f554dd15686397df19c1e24591bbfd550442b33f076a7354
     icon: https://avatars.githubusercontent.com/u/100464677
@@ -84,7 +99,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-04-06T13:31:38.170117508Z"
+    created: "2023-04-06T13:46:54.920838406Z"
     description: NetBird VPN management platform
     digest: 8deab0273725223607f5100da4485942d0b832df90e9432c717f507d5974fb41
     icon: https://avatars.githubusercontent.com/u/100464677
@@ -99,7 +114,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-04-06T13:31:38.169233898Z"
+    created: "2023-04-06T13:46:54.920013493Z"
     description: NetBird VPN management platform
     digest: a10f8c245aa942a07e21f07413d4e598f03ba47aaa01604b80b727fa52888c2c
     icon: https://avatars.githubusercontent.com/u/100464677
@@ -114,7 +129,7 @@ entries:
       artifacthub.io/prerelease: "true"
     apiVersion: v2
     appVersion: 0.14.4
-    created: "2023-04-06T13:31:38.168000284Z"
+    created: "2023-04-06T13:46:54.919182181Z"
     description: NetBird VPN management platform
     digest: fc89ca018a2a11856b7cf01ad1649fe390356de05c025f11d5622ada4fe4f1ff
     icon: https://avatars.githubusercontent.com/u/100464677
@@ -137,13 +152,13 @@ entries:
           url: https://raw.githubusercontent.com/netbirdio/dashboard/main/media/add-peer.png
     apiVersion: v2
     appVersion: v1.8.0
-    created: "2023-04-06T13:31:38.173194542Z"
+    created: "2023-04-06T13:46:54.92514537Z"
     description: UI for the NetBird VPN management platform
-    digest: 249a828c01cbebac6ccb61da178d54dd6d50453e1aeb144a9506158dbc08fb8b
+    digest: 7b7c583f047c6cb5597b6baa6906b3025db4b1962bc1a6c228d96da9d6a5329d
     icon: https://avatars.githubusercontent.com/u/100464677
     name: netbird-dashboard
     type: application
     urls:
     - netbird-dashboard-0.2.0.tgz
     version: 0.2.0
-generated: "2023-04-06T13:31:38.164772548Z"
+generated: "2023-04-06T13:46:54.91644744Z"
