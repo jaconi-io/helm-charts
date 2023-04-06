@@ -98,8 +98,6 @@ spec:
           args:
             - --log-level
             - info
-            - --single-account-mode-domain
-            - {{ .Values.management.singleAccountModeDomain }}
             - --dns-domain
             - {{ .Values.management.dnsDomain }}
           ports:

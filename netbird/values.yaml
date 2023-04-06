@@ -217,10 +217,6 @@ management:
     ##
     size: 100Mi
 
-  ## @param management.singleAccountModeDomain
-  ##
-  singleAccountModeDomain: netbird.selfhosted
-
   ## @param management.dnsDomain
   ##
   dnsDomain: netbird.selfhosted
