@@ -67,7 +67,7 @@ spec:
             - name: NETBIRD_MGMT_API_CERT_KEY_FILE
               value: ""
             {{- with .Values.management.singleAccountModeDomain }}
-            - name: NETBIRD_MGMT_API_SINGLE_ACCOUNT_MODE_DOMAIN
+            - name: NETBIRD_MGMT_SINGLE_ACCOUNT_MODE_DOMAIN
               value: {{ . }}
             {{- end }}
             - name: NETBIRD_AUTH_AUDIENCE
