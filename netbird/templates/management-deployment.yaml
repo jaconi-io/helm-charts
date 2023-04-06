@@ -66,10 +66,6 @@ spec:
               value: ""
             - name: NETBIRD_MGMT_API_CERT_KEY_FILE
               value: ""
-            {{- with .Values.management.singleAccountModeDomain }}
-            - name: NETBIRD_MGMT_SINGLE_ACCOUNT_MODE_DOMAIN
-              value: {{ . }}
-            {{- end }}
             - name: NETBIRD_AUTH_AUDIENCE
               value: {{ .Values.auth.audience }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_PROVIDER
@@ -100,6 +96,11 @@ spec:
           image: "{{ .Values.management.image.repository }}:{{ .Values.management.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.management.image.pullPolicy }}
           args: ["--log-level", "{{ .Values.management.logLevel }}"]
+          command:
+            - --single-account-mode-domain
+            - {{ .Values.management.singleAccountModeDomain }}
+            - --dns-domain
+            - {{ .Values.management.dnsDomain }}
           ports:
             - name: http
               containerPort: {{ .Values.management.service.port }}

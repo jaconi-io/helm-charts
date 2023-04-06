@@ -221,6 +221,10 @@ management:
   ##
   singleAccountModeDomain: netbird.selfhosted
 
+  ## @param management.dnsDomain
+  ##
+  dnsDomain: netbird.selfhosted
+
 ## @section NetBird Signal
 
 signal:
