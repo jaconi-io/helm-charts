@@ -84,6 +84,41 @@ spec:
             - name: NETBIRD_AUTH_DEVICE_AUTH_TOKEN_ENDPOINT
               value: "{{ .Values.auth.device.tokenEndpoint }}"
             {{- end }}
+
+            # IDP configuration.
+            - name: NETBIRD_IDP_MANAGER_TYPE
+              value: "{{ .Values.idp.managerType }}"
+
+            {{- if ne .Values.idp.managerType "none" }}
+            - name: NETBIRD_IDP_CLIENT_ID
+              value: "{{ .Values.idp.clientID }}"
+            - name: NETBIRD_IDP_CLIENT_SECRET
+              value: "{{ .Values.idp.clientSecret }}"
+            {{- with .Values.idp.secretKeyRef }}
+            - name: NETBIRD_IDP_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .name }}
+                  key: {{ .key }}
+            {{- end }}
+            - name: NETBIRD_IDP_GRANT_TYPE
+              value: "{{ .Values.idp.grantType }}"
+            {{- end }}
+
+            {{- if eq .Values.idp.managerType "auth0" }}
+            - name: NETBIRD_IDP_AUTH0_AUDIENCE
+              value: "{{ .Values.idp.audience }}"
+            - name: NETBIRD_IDP_AUTH0_AUTH_ISSUER
+              value: "{{ .Values.idp.authIssuer }}"
+            {{- end }}
+
+            {{- if eq .Values.idp.managerType "keycloak" }}
+            - name: NETBIRD_IDP_KEYCLOAK_ADMIN_ENDPOINT
+              value: "{{ .Values.idp.adminEndpoint }}"
+            - name: NETBIRD_IDP_KEYCLOAK_TOKEN_ENDPOINT
+              value: "{{ .Values.idp.tokenEndpoint }}"
+            {{- end }}
+
           volumeMounts:
             - mountPath: /etc/netbird
               name: config
