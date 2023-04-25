@@ -68,11 +68,13 @@ spec:
               value: ""
             - name: NETBIRD_AUTH_AUDIENCE
               value: {{ .Values.auth.audience }}
-            - name: NETBIRD_AUTH_DEVICE_AUTH_PROVIDER
-              value: {{ .Values.auth.device.provider }}
             - name: NETBIRD_AUTH_USER_ID_CLAIM
               value: {{ .Values.auth.userIDClaim }}
+
+            # Device auth configuration.
             {{- if eq .Values.auth.device.provider "hosted" }}
+            - name: NETBIRD_AUTH_DEVICE_AUTH_PROVIDER
+              value: {{ .Values.auth.device.provider }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_AUDIENCE
               value: "{{ .Values.auth.device.audience }}"
             - name: NETBIRD_AUTH_DEVICE_AUTH_AUTHORITY
@@ -83,6 +85,10 @@ spec:
               value: "{{ .Values.auth.device.deviceAuthorizationEndpoint }}"
             - name: NETBIRD_AUTH_DEVICE_AUTH_TOKEN_ENDPOINT
               value: "{{ .Values.auth.device.tokenEndpoint }}"
+            - name: NETBIRD_AUTH_DEVICE_AUTH_SCOPE
+              value: "{{ default "openid" .Values.auth.device.scope }}"
+            - name: NETBIRD_AUTH_DEVICE_AUTH_USE_ID_TOKEN
+              value: "{{ default "false" .Values.auth.device.useIDToken }}"
             {{- end }}
 
             # IDP configuration.

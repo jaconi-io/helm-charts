@@ -20,6 +20,8 @@ auth:
     # clientID: netbird-management
     # deviceAuthorizationEndpoint: https://example.com/auth/device
     # tokenEndpoint: https://example.com/token
+    # scope: openid
+    # useIDToken: false
 
 idp:
 
