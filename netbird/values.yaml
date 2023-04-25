@@ -21,6 +21,25 @@ auth:
     # deviceAuthorizationEndpoint: https://example.com/auth/device
     # tokenEndpoint: https://example.com/token
 
+idp:
+
+  ## @param idp.managerType none, keycloak, or auth0
+  ##
+  managerType: none
+  # clientID:
+  # secretKeyRef:
+  #   name: turn-credentials
+  #   key: password
+  # grantType:
+
+  # Auth0
+  # audience:
+  # authIssuer:
+
+  # Keycloak
+  # adminEndpoint:
+  # tokenEndpoint:
+
 stun:
   ## @param stun.uri
   ##
