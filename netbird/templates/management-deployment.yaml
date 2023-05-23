@@ -45,6 +45,8 @@ spec:
           env:
             - name: NETBIRD_SIGNAL_URI
               value: {{ .Values.signal.uri }}
+            - name: NETBIRD_SIGNAL_PROTOCOL
+              value: {{ .Values.signal.protocol }}
             - name: NETBIRD_STUN_URI
               value: {{ .Values.stun.uri }}
             - name: NETBIRD_TURN_URI

@@ -9,6 +9,7 @@ auth:
   ## @param auth.authority
   ##
   authority: http://keycloak.localtest.me:9000/realms/helm-charts
+  # authority: https://<tenant-name>.us.auth0.com
 
   device:
     ## @param auth.device.provider
@@ -30,8 +31,8 @@ idp:
   managerType: none
   # clientID:
   # secretKeyRef:
-  #   name: turn-credentials
-  #   key: password
+  #   name: idp-credentials
+  #   key: secretkey
   # grantType:
 
   # Auth0
@@ -252,6 +253,10 @@ signal:
   ## @param signal.uri
   ##
   uri: example.com:10000
+
+  ## @param signal.protocol grpc, http, https
+  ##
+  protocol: grpc
 
   ## @param signal.replicaCount
   ##

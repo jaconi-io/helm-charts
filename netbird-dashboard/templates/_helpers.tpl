@@ -60,3 +60,16 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Overrides container entrypoint based on a flag
+*/}}
+{{- define "netbird-dashboard.disableIPv6" -}}
+{{- if .Values.netbird.disableIPv6 }}
+command: ["/bin/sh", "-c"]
+args:
+- >
+  sed -i 's/listen \[\:\:\]\:80 default_server\;//g' /etc/nginx/http.d/default.conf &&
+  /usr/bin/supervisord -c /etc/supervisord.conf
+{{- end }}
+{{- end }}
