@@ -8,8 +8,8 @@ spec:
   type: {{ .Values.signal.service.type }}
   ports:
     - port: {{ .Values.signal.service.port }}
-      targetPort: grpc
+      targetPort: {{ .Values.signal.protocol }}
       protocol: TCP
-      name: http
+      name: {{ .Values.signal.protocol }}
   selector:
     {{- include "netbird.signal.selectorLabels" . | nindent 4 }}

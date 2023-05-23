@@ -3,7 +3,7 @@ apiVersion: v2
 name: netbird-dashboard
 description: UI for the NetBird VPN management platform
 type: application
-version: 0.4.0
+version: 0.5.0
 appVersion: "v1.11.0"
 icon: https://avatars.githubusercontent.com/u/100464677
 annotations:

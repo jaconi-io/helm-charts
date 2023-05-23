@@ -33,17 +33,17 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.signal.image.repository }}:{{ .Values.signal.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.signal.image.pullPolicy }}
-          args: ["--log-level", "{{ .Values.signal.logLevel }}"]
+          args: ["--port", "{{ .Values.signal.service.port }}", "--log-level", "{{ .Values.signal.logLevel }}", "--log-file", "console"]
           ports:
-            - name: grpc
+            - name: {{ .Values.signal.protocol }}
               containerPort: {{ .Values.signal.service.port }}
               protocol: TCP
           livenessProbe:
             tcpSocket:
-              port: grpc
+              port: {{ .Values.signal.protocol }}
           readinessProbe:
             tcpSocket:
-              port: grpc
+              port: {{ .Values.signal.protocol }}
           resources:
             {{- toYaml .Values.signal.resources | nindent 12 }}
           volumeMounts:

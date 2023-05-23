@@ -3,7 +3,7 @@ apiVersion: v2
 name: netbird
 description: NetBird VPN management platform
 type: application
-version: 0.9.0
+version: 0.10.0
 appVersion: "0.19.0"
 icon: https://avatars.githubusercontent.com/u/100464677
 annotations:
