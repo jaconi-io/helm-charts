@@ -29,7 +29,7 @@ netbird:
   ## @param netbird.managementGrpcApiEndpoint
   managementGrpcApiEndpoint: http://localtest.me:8081
 
-  ## @param disableIPv6
+  ## @param netbird.disableIPv6
   disableIPv6: true
 
 ## @section Common configuration
