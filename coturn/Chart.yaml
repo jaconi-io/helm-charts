@@ -3,8 +3,8 @@ apiVersion: v2
 name: coturn
 description: Coturn TURN server
 type: application
-version: 0.7.0
-appVersion: "4.6.1-r2"
+version: 0.8.0
+appVersion: "4.6.2-r2"
 annotations:
   artifacthub.io/category: networking
   artifacthub.io/license: MIT
@@ -12,3 +12,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: values.schema.json
+    - kind: changed
+      description: update coturn to 4.6.2-r2
