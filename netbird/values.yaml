@@ -256,7 +256,7 @@ signal:
 
   ## @param signal.protocol grpc, http, https
   ##
-  protocol: grpc
+  protocol: https
 
   ## @param signal.replicaCount
   ##
