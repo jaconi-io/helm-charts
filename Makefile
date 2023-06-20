@@ -10,7 +10,7 @@ all: $(packages) index
 clean:
 	rm -rf out/
 
-index: out/CNAME out/index.html out/index.yaml out/artifacthub-repo.yml
+index: out/.nojekyll out/CNAME out/index.html out/index.yaml out/artifacthub-repo.yml
 
 lint: $(charts)
 	helm lint $(charts)
