@@ -1,0 +1,125 @@
+---
+# Default values for koptimize.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## @section Common parameters
+## @param imagePullSecrets The image pull secrets to use.
+imagePullSecrets: []
+## @param nameOverride Override for the chart name.
+nameOverride: ""
+## @param fullnameOverride Override for the chart's full name.
+fullnameOverride: ""
+
+## @section Deployment parameters
+## @param replicaCount Number of replicas for the koptimize deployment.
+replicaCount: 1
+
+## @param priorityClassName Priority Class for the koptimize deployment.
+priorityClassName: system-cluster-critical
+
+## @param podAnnotations The annotations to add to the pod.
+podAnnotations: {}
+
+## @param podSecurityContext The pod's security context.
+podSecurityContext: {}
+# fsGroup: 2000
+
+## @param nodeSelector The nodeSelector to use.
+nodeSelector: {}
+
+## @param tolerations The tolerations.
+tolerations: []
+
+## @param affinity The affinity settings.
+affinity: {}
+
+## @section Controller parameters
+controller:
+  image:
+    ## @param controller.image.repository The controller image.
+    repository: ghcr.io/jaconi-io/koptimize
+    ## @param controller.image.pullPolicy The controller image's pull policy.
+    pullPolicy: IfNotPresent
+    ## @param controller.image.tag The controller image tag.
+    tag: ""
+  # yamllint disable-line rule:line-length
+  ## @param controller.securityContext The controller container security context.
+  securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+  ## @param controller.resources The controller container resources.
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## @section Scheduler parameters
+scheduler:
+  ## @param scheduler.enabled Enable the scheduler container.
+  enabled: false
+  image:
+    ## @param scheduler.image.repository The scheduler image.
+    repository: ghcr.io/jaconi-io/koptimize
+    ## @param scheduler.image.pullPolicy The scheduler image's pull policy.
+    pullPolicy: IfNotPresent
+    ## @param scheduler.image.tag The scheduler image tag.
+    tag: ""
+  ## @param scheduler.securityContext The scheduler container security context.
+  securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+  ## @param scheduler.resources The scheduler container resources.
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+## @section Service Account parameters
+serviceAccount:
+  # yamllint disable-line rule:line-length
+  ## @param serviceAccount.create Specifies whether a service account should be created
+  create: true
+  # yamllint disable-line rule:line-length
+  ## @param serviceAccount.annotations Annotations to add to the service account
+  annotations: {}
+  ## @param serviceAccount.name The name of the service account to use.
+  # yamllint disable-line rule:line-length
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+## @section Service parameters
+service:
+  ## @param service.type The service type
+  type: ClusterIP
+  ## @param service.port The service port
+  port: 443
+  ## @param service.targetPort The service target port
+  targetPort: 9443
+
+## @section Autoscaling parameters
+autoscaling:
+  ## @param autoscaling.enabled Enabled autoscaling
+  enabled: false
+  ## @param autoscaling.minReplicas Min number of replicas
+  minReplicas: 1
+  ## @param autoscaling.maxReplicas Max number of replicas
+  maxReplicas: 100
+  # yamllint disable-line rule:line-length
+  ## @param autoscaling.targetCPUUtilizationPercentage Target CPU utilization percentage
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
