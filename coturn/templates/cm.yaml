@@ -5,5 +5,5 @@ metadata:
   labels:
     {{- include "coturn.labels" . | nindent 4 }}
 data:
-  management.tmpl.json: |-
+  turnserver.conf: |-
     {{- .Files.Get "turnserver.conf" | nindent 4 }}
