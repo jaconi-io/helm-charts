@@ -1,0 +1,18 @@
+{{- if .Values.serviceMonitor.create }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "koptimize.fullname" . }}
+  labels:
+    {{- include "koptimize.labels" . | nindent 4 }}
+spec:
+  endpoints:
+    - interval: {{ .Values.serviceMonitor.interval }}
+      port: metrics
+      path: /metrics
+      scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout }}
+      honorLabels: true
+  selector:
+    matchLabels:
+      {{- include "koptimize.selectorLabels" . | nindent 6 }}
+{{- end }}
