@@ -124,7 +124,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-## @section Pod Disruption Budget parameters
+## @param Pod Disruption Budget parameters
 podDisruptionBudget: {}
 #  maxUnavailable: 1
 #  minAvailable: 1
