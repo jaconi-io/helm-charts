@@ -18,6 +18,10 @@ replicaCount: 1
 ## @param priorityClassName Priority Class for the koptimize deployment.
 priorityClassName: system-cluster-critical
 
+# yamllint disable-line rule:line-length
+## @param annotations Annotations to add to the deployment
+annotations: {}
+
 ## @param podAnnotations The annotations to add to the pod.
 podAnnotations: {}
 
@@ -110,6 +114,9 @@ service:
   port: 443
   ## @param service.targetPort The service target port
   targetPort: 9443
+  # yamllint disable-line rule:line-length
+  ## @param service.annotations Annotations to add to the service
+  annotations: {}
 
 ## @section Autoscaling parameters
 autoscaling:
@@ -124,6 +131,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+## @section Pod Disruption Budget
 ## @param podDisruptionBudget Pod Disruption Budget parameters
 podDisruptionBudget: {}
 #  maxUnavailable: 1
