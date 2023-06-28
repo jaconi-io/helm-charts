@@ -1,0 +1,16 @@
+{{- if .Values.podDisruptionBudget -}}
+{{- if .Capabilities.APIVersions.Has "policy/v1" }}
+apiVersion: policy/v1
+{{- else }}
+apiVersion: policy/v1beta1
+{{- end }}
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "koptimize.fullname" . }}
+  labels:
+    {{- include "koptimize.labels" . | nindent 4 }}
+spec:
+  selector:
+    {{- include "koptimize.selectorLabels" . | nindent 4 }}
+  {{- toYaml .Values.podDisruptionBudget | nindent 2 }}
+{{- end }}
