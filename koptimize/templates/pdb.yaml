@@ -11,6 +11,7 @@ metadata:
     {{- include "koptimize.labels" . | nindent 4 }}
 spec:
   selector:
-    {{- include "koptimize.selectorLabels" . | nindent 4 }}
+    matchLabels:
+      {{- include "koptimize.selectorLabels" . | nindent 6 }}
   {{- toYaml .Values.podDisruptionBudget | nindent 2 }}
 {{- end }}

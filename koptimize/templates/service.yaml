@@ -15,5 +15,9 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: 8080
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
   selector:
     {{- include "koptimize.selectorLabels" . | nindent 4 }}

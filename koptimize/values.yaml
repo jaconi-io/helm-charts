@@ -136,3 +136,13 @@ autoscaling:
 podDisruptionBudget: {}
 #  maxUnavailable: 1
 #  minAvailable: 1
+
+## @section Service Monitor parameters
+serviceMonitor:
+  # yamllint disable-line rule:line-length
+  ## @param serviceMonitor.create Enable or disable the Service Monitor creation
+  create: false
+  ## @param serviceMonitor.interval Scrape interval
+  interval: 10s
+  ## @param serviceMonitor.scrapeTimeout Scrape timeout
+  scrapeTimeout: 10s
