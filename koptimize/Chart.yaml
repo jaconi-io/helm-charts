@@ -3,7 +3,7 @@ apiVersion: v2
 name: koptimize
 description: A Helm chart for koptimize
 type: application
-version: 0.5.2
+version: 0.5.3
 appVersion: "1.2.4"
 annotations:
   artifacthub.io/category: integration-delivery
