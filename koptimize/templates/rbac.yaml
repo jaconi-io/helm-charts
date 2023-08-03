@@ -76,7 +76,7 @@ rules:
     verbs:
       - "get"
       - "create"
-      - "delete"
+      - "update"
   - apiGroups:
       - coordination.k8s.io
     resources:
