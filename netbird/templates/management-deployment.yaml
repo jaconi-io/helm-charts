@@ -141,6 +141,8 @@ spec:
           args:
             - --log-level
             - info
+            - --log-file
+            - console
             - --dns-domain
             - {{ .Values.management.dnsDomain }}
           ports:
