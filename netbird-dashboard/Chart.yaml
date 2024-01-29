@@ -4,7 +4,7 @@ name: netbird-dashboard
 description: UI for the NetBird VPN management platform
 type: application
 version: 0.8.0
-appVersion: "v1.16.0"
+appVersion: "v1.17.16"
 icon: https://avatars.githubusercontent.com/u/100464677
 annotations:
   artifacthub.io/category: networking
@@ -22,3 +22,5 @@ annotations:
   artifacthub.io/changes: |
     - kind: changed
       description: update to 1.16.0
+    - kind: changed
+      description: update to 1.17.16
