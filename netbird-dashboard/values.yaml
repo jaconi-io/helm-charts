@@ -43,7 +43,7 @@ replicaCount: 1
 
 image:
   ## @param image.repository image repository
-  repository: wiretrustee/dashboard
+  repository: netbirdio/dashboard
 
   ## @param image.pullPolicy image pull policy
   pullPolicy: IfNotPresent

@@ -87,3 +87,10 @@ Forward the NetBird dashboard to port `8080`:
 ```shell
 kubectl port-forward -n netbird-dashboard service/netbird-dashboard 8080:80
 ```
+
+Login at `http://localtest.me:8080/` using the credentials `admin:admin` and create a setup key. Join the network by
+running
+
+```shell
+netbird up --management-url http://localtest.me:8081 --setup-key <YOUR_SETUP_KEY>
+```
