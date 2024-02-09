@@ -4,7 +4,7 @@ name: netbird
 description: NetBird VPN management platform
 type: application
 version: 0.14.2
-appVersion: "0.25.5"
+appVersion: "0.25.6"
 icon: https://avatars.githubusercontent.com/u/100464677
 annotations:
   artifacthub.io/category: networking
@@ -12,13 +12,4 @@ annotations:
   artifacthub.io/prerelease: "true"
   artifacthub.io/changes: |
     - kind: changed
-      description: update to 0.23.4
-    - kind: changed
-      description: log to standard output
-    - kind: changed
-      description: update to 0.25.5
-    - kind: fixed
-      description: broken config due to missing default for UseIDToken
-      links:
-        - name: GitHub Issue
-          url: https://github.com/jaconi-io/helm-charts/issues/39
+      description: updated to 0.25.6
