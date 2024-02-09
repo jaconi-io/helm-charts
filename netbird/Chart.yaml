@@ -3,7 +3,7 @@ apiVersion: v2
 name: netbird
 description: NetBird VPN management platform
 type: application
-version: 0.14.1
+version: 0.14.2
 appVersion: "0.25.5"
 icon: https://avatars.githubusercontent.com/u/100464677
 annotations:
@@ -17,3 +17,8 @@ annotations:
       description: log to standard output
     - kind: changed
       description: update to 0.25.5
+    - kind: fixed
+      description: broken config due to missing default for UseIDToken
+      links:
+        - name: GitHub Issue
+          url: https://github.com/jaconi-io/helm-charts/issues/39
