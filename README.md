@@ -17,7 +17,7 @@ kind create cluster --config kind.yaml
 Install [MetalLB](https://metallb.universe.tf) in the created cluster:
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.9/config/manifests/metallb-native.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml
 ```
 
 Determine the kind IP range:
