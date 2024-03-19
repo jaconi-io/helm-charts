@@ -4,7 +4,7 @@ name: netbird
 description: NetBird VPN management platform
 type: application
 version: 0.14.2
-appVersion: "0.25.6"
+appVersion: "0.26.3"
 icon: https://avatars.githubusercontent.com/u/100464677
 annotations:
   artifacthub.io/category: networking
@@ -12,4 +12,4 @@ annotations:
   artifacthub.io/prerelease: "true"
   artifacthub.io/changes: |
     - kind: changed
-      description: updated to 0.25.6
+      description: updated to 0.26.3
