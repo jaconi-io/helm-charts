@@ -3,3 +3,4 @@ extends: default
 
 ignore: |
   */templates/*.yaml
+  out/index.yaml
