@@ -102,8 +102,10 @@ spec:
             - mountPath: /etc/turnserver.conf
               name: config
               subPath: turnserver.conf
+            {{- if .Values.certificate.enabled }}
             - mountPath: /usr/local/etc
               name: certs
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -124,6 +126,8 @@ spec:
         - name: config
           configMap:
             name: {{ include "coturn.fullname" . }}
+        {{- if .Values.certificate.enabled }}
         - name: certs
           secret:
             secretName: {{ include "coturn.fullname" . }}
+        {{- end }}
