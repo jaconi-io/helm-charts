@@ -38,7 +38,7 @@ spec:
               name: {{ .Values.relay.env.secretName }}
           args: ["--listen-address", ":{{ .Values.relay.service.port }}", "--log-level", "{{ .Values.relay.logLevel }}", "--log-file", "console"]
           ports:
-            - name: {{ .Values.relay.protocol }}
+            - name: http
               containerPort: {{ .Values.relay.service.port }}
               protocol: TCP
           livenessProbe:
