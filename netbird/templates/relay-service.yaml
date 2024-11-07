@@ -8,8 +8,8 @@ spec:
   type: {{ .Values.relay.service.type }}
   ports:
     - port: {{ .Values.relay.service.port }}
-      targetPort: {{ .Values.relay.service.port }}
+      targetPort: http
       protocol: TCP
-      name: {{ .Values.relay.service.port }}
+      name: http
   selector:
     {{- include "netbird.relay.selectorLabels" . | nindent 4 }}
