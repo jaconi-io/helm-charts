@@ -26,6 +26,11 @@
         "Username": "",
         "Password": null
     },
+    "Relay": {
+        "Addresses": ["${NB_EXPOSED_ADDRESS}"],
+        "CredentialsTTL": "24h",
+        "Secret": "${NB_AUTH_SECRET}"
+    },    
     "Datadir": "",
     "HttpConfig": {
         "Address": "0.0.0.0:80",
