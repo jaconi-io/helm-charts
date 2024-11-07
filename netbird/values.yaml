@@ -424,29 +424,31 @@ signal:
     size: 100Mi
 
 relay:
-  ## @param signal.logLevel
+  ## @param relay.logLevel
   ##
   logLevel: info
   
   env:
+    ## @param relay.env.secretName. It must contain NB_EXPOSED_ADDRESS, NB_AUTH_SECRET values
+    ## 
     secretName: netbird-relay-secret
   
 
-  ## @param signal.replicaCount
+  ## @param relay.replicaCount
   ##
   replicaCount: 1
 
   image:
-    ## @param signal.image.repository
+    ## @param relay.image.repository
     ##
     repository: netbirdio/relay
 
-    ## @param signal.image.pullPolicy
+    ## @param relay.image.pullPolicy
     ##
     pullPolicy: IfNotPresent
 
     # yamllint disable-line rule:line-length
-    ## @param signal.image.tag Overrides the image tag whose default is the chart appVersion.
+    ## @param relay.image.tag Overrides the image tag whose default is the chart appVersion.
     ##
     tag: ""
 
