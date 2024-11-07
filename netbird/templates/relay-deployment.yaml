@@ -43,10 +43,10 @@ spec:
               protocol: TCP
           livenessProbe:
             tcpSocket:
-              port: {{ .Values.relay.protocol }}
+              port: {{ .Values.relay.service.port }}
           readinessProbe:
             tcpSocket:
-              port: {{ .Values.relay.protocol }}
+              port: {{ .Values.relay.service.port }}
           resources:
             {{- toYaml .Values.relay.resources | nindent 12 }}
       {{- with .Values.relay.nodeSelector }}
