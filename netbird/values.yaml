@@ -422,3 +422,166 @@ signal:
     ## @param signal.persistentVolume.size
     ##
     size: 100Mi
+
+relay:
+  ## @param relay.logLevel
+  ##
+  logLevel: info
+  
+  env:
+    ## @param relay.env.secretName. It must contain NB_EXPOSED_ADDRESS, NB_AUTH_SECRET values
+    ## 
+    secretName: netbird-relay-secret
+  
+
+  ## @param relay.replicaCount
+  ##
+  replicaCount: 1
+
+  image:
+    ## @param relay.image.repository
+    ##
+    repository: netbirdio/relay
+
+    ## @param relay.image.pullPolicy
+    ##
+    pullPolicy: IfNotPresent
+
+    # yamllint disable-line rule:line-length
+    ## @param relay.image.tag Overrides the image tag whose default is the chart appVersion.
+    ##
+    tag: ""
+
+  serviceAccount:
+    # yamllint disable-line rule:line-length
+    ## @param relay.serviceAccount.create Specifies whether a service account should be created.
+    ##
+    create: true
+
+    # yamllint disable-line rule:line-length
+    ## @param relay.serviceAccount.annotations Annotations to add to the service account.
+    ##
+    annotations: {}
+
+    # yamllint disable-line rule:line-length
+    ## @param relay.serviceAccount.name The name of the service account to use.
+    ##
+
+  ## @param relay.imagePullSecrets
+  imagePullSecrets: []
+
+  # yamllint disable-line rule:line-length
+  ## @param relay.deploymentAnnotations Annotations to add to the relay deployment.
+  ##
+  deploymentAnnotations: {}
+
+  ## @param relay.podAnnotations Annotations to add to the relay pod(s).
+  ##
+  podAnnotations: {}
+
+  ## @param relay.podSecurityContext
+  ##
+  podSecurityContext:
+    {}
+    # fsGroup: 2000
+
+  ## @param relay.securityContext
+  ##
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    ## @param relay.service.type
+    ##
+    type: ClusterIP
+
+    ## @param relay.service.port
+    ##
+    port: 33080
+
+  ingress:
+    ## @param relay.ingress.enabled
+    ##
+    enabled: false
+
+    ## @param relay.ingress.className
+    ##
+    className: ""
+
+    ## @param relay.ingress.annotations
+    ##
+    annotations:
+      {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+      # nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+      # nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    hosts:
+      ## @param relay.ingress.hosts[0].host
+      ##
+      - host: example.com
+        paths:
+          ## @param relay.ingress.hosts[0].paths[0].path
+          ##
+          - path: /relay
+            ## @param relay.ingress.hosts[0].paths[0].pathType
+            ##
+            pathType: ImplementationSpecific
+    ## @param relay.ingress.tls
+    ##
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  ## @param relay.resources
+  ##
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as
+    # a conscious choice for the user. This also increases chances charts run on
+    # environments with little resources, such as Minikube. If you do want to
+    # specify resources, uncomment the following lines, adjust them as
+    # necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  autoscaling:
+    ## @param relay.autoscaling.enabled
+    ##
+    enabled: false
+
+    ## @param signal.autoscaling.minReplicas
+    ##
+    minReplicas: 1
+
+    ## @param relay.autoscaling.maxReplicas
+    ##
+    maxReplicas: 100
+
+    ## @param sigrelaynal.autoscaling.targetCPUUtilizationPercentage
+    ##
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+  ## @param relay.nodeSelector
+  ##
+  nodeSelector: {}
+
+  ## @param relay.tolerations
+  ##
+  tolerations: []
+
+  ## @param relay.affinity
+  ##
+  affinity: {}

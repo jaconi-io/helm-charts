@@ -42,6 +42,9 @@ spec:
               go install github.com/drone/envsubst/cmd/envsubst@latest &&
               envsubst < /tmp/netbird/management.tmpl.json > /etc/netbird/management.json &&
               cat /etc/netbird/management.json
+          envFrom:
+          - secretRef:
+              name: {{ .Values.relay.env.secretName }}
           env:
             - name: NETBIRD_SIGNAL_URI
               value: {{ .Values.signal.uri }}
@@ -72,7 +75,6 @@ spec:
               value: {{ .Values.auth.audience }}
             - name: NETBIRD_AUTH_USER_ID_CLAIM
               value: {{ .Values.auth.userIDClaim }}
-
             # Device auth configuration.
             {{- if eq .Values.auth.device.provider "hosted" }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_PROVIDER
