@@ -24,10 +24,10 @@ auth:
 
 netbird:
   ## @param netbird.managementApiEndpoint
-  managementApiEndpoint: http://localtest.me:8081
+  managementApiEndpoint: http://localhost:8081
 
   ## @param netbird.managementGrpcApiEndpoint
-  managementGrpcApiEndpoint: http://localtest.me:8081
+  managementGrpcApiEndpoint: http://localhost:8081
 
   ## @param netbird.disableIPv6
   disableIPv6: true

@@ -98,12 +98,11 @@ spec:
             # IDP configuration.
             - name: NETBIRD_IDP_MANAGER_TYPE
               value: "{{ .Values.idp.managerType }}"
-
+              
             {{- if ne .Values.idp.managerType "none" }}
             - name: NETBIRD_IDP_CLIENT_ID
               value: "{{ .Values.idp.clientID }}"
-            - name: NETBIRD_IDP_CLIENT_SECRET
-              value: "{{ .Values.idp.clientSecret }}"
+            {{- if .Values.idp.secretKeyRef }}
             {{- with .Values.idp.secretKeyRef }}
             - name: NETBIRD_IDP_CLIENT_SECRET
               valueFrom:
@@ -111,6 +110,11 @@ spec:
                   name: {{ .name }}
                   key: {{ .key }}
             {{- end }}
+            {{- else }}
+            - name: NETBIRD_IDP_CLIENT_SECRET
+              value: "{{ .Values.idp.clientSecret }}"
+            {{- end }}
+            
             - name: NETBIRD_IDP_GRANT_TYPE
               value: "{{ .Values.idp.grantType }}"
             {{- end }}

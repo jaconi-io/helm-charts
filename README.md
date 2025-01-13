@@ -14,10 +14,10 @@ Create a [kind](https://kind.sigs.k8s.io) cluster:
 kind create cluster --config kind.yaml
 ```
 
-Install [MetalLB](https://metallb.universe.tf) in the created cluster:
+Install [MetalLB](https://metallb.io) in the created cluster:
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/manifests/metallb-native.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.9/config/manifests/metallb-native.yaml
 ```
 
 Determine the kind IP range:
@@ -29,7 +29,7 @@ docker network inspect -f '{{ .IPAM.Config }}' kind
 Configure an IP address pool for MetalLB:
 
 ```shell
-kubectl apply -f - << EOF 
+kubectl apply -f - << EOF
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
@@ -54,6 +54,22 @@ Start [Keycloak](https://www.keycloak.org):
 
 ```shell
 docker compose up --detach
+```
+
+Update the Netbird configuration like this:
+
+```yaml
+auth:
+  device:
+    # provider: none
+    provider: hosted
+    audience: account
+    authority: http://localhost
+    clientID: netbird-management
+    deviceAuthorizationEndpoint: http://localhost/auth/device
+    tokenEndpoint: http://localhost/token
+    scope: openid
+    useIDToken: false
 ```
 
 Install the Helm charts for testing:
@@ -88,9 +104,14 @@ Forward the NetBird dashboard to port `8080`:
 kubectl port-forward -n netbird-dashboard service/netbird-dashboard 8080:80
 ```
 
-Login at `http://localtest.me:8080/` using the credentials `admin:admin` and create a setup key. Join the network by
-running
+Forward the NetBird signal server to port `10000`:
 
 ```shell
-netbird up --management-url http://localtest.me:8081 --setup-key <YOUR_SETUP_KEY>
+kubectl port-forward -n netbird service/netbird-signal 10000:80
+```
+
+Join the network by running
+
+```shell
+netbird up --management-url http://localhost:8081 --admin-url http://localhost:8080
 ```
