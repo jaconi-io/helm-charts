@@ -3,7 +3,7 @@ apiVersion: v2
 name: netbird
 description: NetBird VPN management platform
 type: application
-version: 0.14.2
+version: 0.14.3
 appVersion: "0.26.3"
 icon: https://avatars.githubusercontent.com/u/100464677
 annotations:
@@ -11,5 +11,5 @@ annotations:
   artifacthub.io/license: MIT
   artifacthub.io/prerelease: "true"
   artifacthub.io/changes: |
-    - kind: changed
-      description: updated to 0.26.3
+    - kind: fixed
+      description: allow only one of two environment variables for NETBIRD_IDP_CLIENT_SECRET
