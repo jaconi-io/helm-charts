@@ -17,10 +17,10 @@ auth:
     provider: none
     # provider: hosted
     # audience: account
-    # authority: https://example.com
+    # authority: http://localhost
     # clientID: netbird-management
-    # deviceAuthorizationEndpoint: https://example.com/auth/device
-    # tokenEndpoint: https://example.com/token
+    # deviceAuthorizationEndpoint: http://localhost/auth/device
+    # tokenEndpoint: http://localhost/token
     # scope: openid
     # useIDToken: false
 
@@ -46,12 +46,12 @@ idp:
 stun:
   ## @param stun.uri
   ##
-  uri: stun:example.com:3478
+  uri: stun:localhost:3478
 
 turn:
   ## @param turn.uri
   ##
-  uri: turn:example.com:3478
+  uri: turn:localhost:3478
   # user: turn-user
   # secretKeyRef:
   #   name: turn-credentials
@@ -252,7 +252,7 @@ signal:
 
   ## @param signal.uri
   ##
-  uri: example.com:10000
+  uri: localhost:10000
 
   ## @param signal.protocol grpc, http, https
   ##
