@@ -31,10 +31,22 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
+Common labels for all workloads
+*/}}
+{{- define "netbird.defaultLabels" -}}
+{{- if .Values.defaultLabels }}
+{{- range $key, $val := .Values.defaultLabels }}
+{{ $key }}: {{ $val }}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Common labels
 */}}
 {{- define "netbird-dashboard.labels" -}}
 helm.sh/chart: {{ include "netbird-dashboard.chart" . }}
+{{ include "netbird.defaultLabels" . }}
 {{ include "netbird-dashboard.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

@@ -62,6 +62,7 @@ spec:
                   name: {{ .name }}
                   key: {{ .key }}
             {{- end }}
+            {{- if ne .Values.idp.managerType "none" }}
             - name: NETBIRD_AUTH_OIDC_CONFIGURATION_ENDPOINT
               value: "{{ .Values.auth.authority }}/.well-known/openid-configuration"
             - name: NETBIRD_MGMT_API_CERT_FILE
@@ -72,6 +73,23 @@ spec:
               value: {{ .Values.auth.audience }}
             - name: NETBIRD_AUTH_USER_ID_CLAIM
               value: {{ .Values.auth.userIDClaim }}
+            - name: NETBIRD_IDP_CLIENT_ID
+              value: "{{ .Values.idp.clientID }}"
+            {{- if .Values.idp.secretKeyRef }}
+            {{- with .Values.idp.secretKeyRef }}
+            - name: NETBIRD_IDP_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .name }}
+                  key: {{ .key }}
+            {{- end }}
+            {{- else }}
+            - name: NETBIRD_IDP_CLIENT_SECRET
+              value: "{{ .Values.idp.clientSecret }}"
+            {{- end }}
+            - name: NETBIRD_IDP_GRANT_TYPE
+              value: "{{ .Values.idp.grantType }}"
+            {{- end }}
 
             # Device auth configuration.
             {{- if eq .Values.auth.device.provider "hosted" }}
@@ -91,32 +109,14 @@ spec:
               value: "{{ default "openid" .Values.auth.device.scope }}"
             - name: NETBIRD_AUTH_DEVICE_AUTH_USE_ID_TOKEN
               value: "{{ default "false" .Values.auth.device.useIDToken }}"
+            - name: NETBIRD_AUTH_DEVICE_REDIRECT_URL
+              value: https://{{ .Values.management.ingress.hosts.api.host }}/
             {{- end }}
 
             # IDP configuration.
             - name: NETBIRD_IDP_MANAGER_TYPE
               value: "{{ .Values.idp.managerType }}"
               
-            {{- if ne .Values.idp.managerType "none" }}
-            - name: NETBIRD_IDP_CLIENT_ID
-              value: "{{ .Values.idp.clientID }}"
-            {{- if .Values.idp.secretKeyRef }}
-            {{- with .Values.idp.secretKeyRef }}
-            - name: NETBIRD_IDP_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .name }}
-                  key: {{ .key }}
-            {{- end }}
-            {{- else }}
-            - name: NETBIRD_IDP_CLIENT_SECRET
-              value: "{{ .Values.idp.clientSecret }}"
-            {{- end }}
-            
-            - name: NETBIRD_IDP_GRANT_TYPE
-              value: "{{ .Values.idp.grantType }}"
-            {{- end }}
-
             {{- if eq .Values.idp.managerType "auth0" }}
             - name: NETBIRD_IDP_AUTH0_AUDIENCE
               value: "{{ .Values.idp.audience }}"
@@ -144,7 +144,7 @@ spec:
           imagePullPolicy: {{ .Values.management.image.pullPolicy }}
           args:
             - --log-level
-            - info
+            - {{ .Values.management.logLevel }}
             - --log-file
             - console
             - --dns-domain
