@@ -78,6 +78,10 @@ serviceAccount:
 ## https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 podAnnotations: {}
 
+## @param defaultLabels Defines default labels for all created resources.
+##
+defaultLabels: {}
+
 ## Configure Pods Security Context
 ## ref:
 ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod

@@ -18,34 +18,31 @@ metadata:
   name: {{ $fullName }}
   labels:
     {{- include "netbird.signal.labels" . | nindent 4 }}
-  {{- with .Values.signal.ingress.annotations }}
+  {{- if or (.Values.annotations.grpc) (.Values.signal.ingress.annotations) }}
   annotations:
-    {{- toYaml . | nindent 4 }}
   {{- end }}
+    {{- with .Values.annotations.grpc }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.signal.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   {{- if and .Values.signal.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
   ingressClassName: {{ .Values.signal.ingress.className }}
   {{- end }}
-  {{- if .Values.signal.ingress.tls }}
+  {{- if .Values.signal.ingress.hosts.signal.tls.secretName }}
   tls:
-    {{- range .Values.signal.ingress.tls }}
     - hosts:
-        {{- range .hosts }}
-        - {{ . | quote }}
-        {{- end }}
-      secretName: {{ .secretName }}
-    {{- end }}
+        - {{ .Values.signal.ingress.hosts.signal.host | quote }}
+      secretName: {{ .Values.signal.ingress.hosts.signal.tls.secretName }}
   {{- end }}
   rules:
-    {{- range .Values.signal.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ .Values.signal.ingress.hosts.signal.host | quote }}
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}
-            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
-            pathType: {{ .pathType }}
-            {{- end }}
+          - path: /signalexchange.SignalExchange/
+            pathType: ImplementationSpecific
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
@@ -56,6 +53,4 @@ spec:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
               {{- end }}
-          {{- end }}
-    {{- end }}
 {{- end }}

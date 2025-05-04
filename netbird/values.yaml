@@ -65,6 +65,17 @@ nameOverride: ""
 ##
 fullnameOverride: ""
 
+## @param defaultLabels Defines default labels for all created resources.
+##
+defaultLabels: {}
+
+annotations:
+  ## @param annotations.grpc Defines ingress annotations for grpc handling
+  ##
+  grpc: 
+    {}
+    # nginx.ingress.kubernetes.io/backend-protocol: GRPC
+
 ## @section NetBird Management
 
 management:
@@ -162,23 +173,28 @@ management:
       # kubernetes.io/tls-acme: "true"
 
     hosts:
-      ## @param management.ingress.hosts[0].host
-      ##
-      - host: example.com
-        paths:
-          ## @param management.ingress.hosts[0].paths[0].path
-          ##
-          - path: /
-            ## @param management.ingress.hosts[0].paths[0].pathType
-            ##
-            pathType: ImplementationSpecific
-    ## @param management.ingress.tls
-    ##
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
-
+      api:
+        ## @param management.ingress.hosts.api.host Hostname to access the API.
+        ##
+        host: example.com
+        ## @param management.ingress.hosts.api.tls Optional TLS secret information
+        ##
+        tls: 
+          {}
+          #  secretName: chart-example-tls
+          # 
+      
+      grpc:
+        ## @param management.ingress.hosts.grpc.host Hostname to run GRPC calls againts.
+        ##
+        host: example.com
+        ## @param management.ingress.hosts.grpc.tls Optional TLS secret information
+        ##
+        tls: 
+          {}
+          #  secretName: chart-example-tls
+          #
+      
   ## @param management.resources
   ##
   resources:
@@ -348,21 +364,12 @@ signal:
     hosts:
       ## @param signal.ingress.hosts[0].host
       ##
-      - host: example.com
-        paths:
-          ## @param signal.ingress.hosts[0].paths[0].path
-          ##
-          - path: /
-            ## @param signal.ingress.hosts[0].paths[0].pathType
-            ##
-            pathType: ImplementationSpecific
-    ## @param signal.ingress.tls
-    ##
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
-
+      signal:
+        host: example.com
+        tls: 
+          {}
+          # secretName: chart-example-tls
+    
   ## @param signal.resources
   ##
   resources:

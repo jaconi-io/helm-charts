@@ -208,6 +208,10 @@ deploymentAnnotations: {}
 ##
 podAnnotations: {}
 
+## @param defaultLabels Defines default labels for all created resources.
+##
+defaultLabels: {}
+
 ## @param podSecurityContext
 ##
 podSecurityContext: {}

@@ -49,6 +49,8 @@ spec:
               value: {{ .Values.netbird.managementApiEndpoint }}
             - name: NETBIRD_MGMT_GRPC_API_ENDPOINT
               value: {{ .Values.netbird.managementGrpcApiEndpoint }}
+            - name: NGINX_SSL_PORT
+              value: "443"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

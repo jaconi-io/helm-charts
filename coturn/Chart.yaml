@@ -3,7 +3,7 @@ apiVersion: v2
 name: coturn
 description: Coturn TURN server
 type: application
-version: 1.0.1
+version: 1.0.2
 appVersion: "4.6.3-r2"
 annotations:
   artifacthub.io/category: networking
@@ -11,4 +11,4 @@ annotations:
   artifacthub.io/prerelease: "true"
   artifacthub.io/changes: |
     - kind: changed
-      description: updated coturn to 4.6.3-r2
+      description: add defaultLabels for all resources
