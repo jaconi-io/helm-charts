@@ -25,7 +25,6 @@ auth:
     # useIDToken: false
 
 idp:
-
   ## @param idp.managerType none, keycloak, or auth0
   ##
   managerType: none
@@ -423,16 +422,18 @@ signal:
     ##
     size: 100Mi
 
+## @section NetBird Relay
+
 relay:
   ## @param relay.logLevel
   ##
   logLevel: info
-  
+
   env:
-    ## @param relay.env.secretName. It must contain NB_EXPOSED_ADDRESS, NB_AUTH_SECRET values
-    ## 
+    # yamllint disable-line rule:line-length
+    ## @param relay.env.secretName Must contain NB_EXPOSED_ADDRESS and NB_AUTH_SECRET values.
+    ##
     secretName: netbird-relay-secret
-  
 
   ## @param relay.replicaCount
   ##
@@ -466,6 +467,7 @@ relay:
     # yamllint disable-line rule:line-length
     ## @param relay.serviceAccount.name The name of the service account to use.
     ##
+    name: ""
 
   ## @param relay.imagePullSecrets
   imagePullSecrets: []
@@ -561,7 +563,7 @@ relay:
     ##
     enabled: false
 
-    ## @param signal.autoscaling.minReplicas
+    ## @param relay.autoscaling.minReplicas
     ##
     minReplicas: 1
 
@@ -569,7 +571,7 @@ relay:
     ##
     maxReplicas: 100
 
-    ## @param sigrelaynal.autoscaling.targetCPUUtilizationPercentage
+    ## @param relay.autoscaling.targetCPUUtilizationPercentage
     ##
     targetCPUUtilizationPercentage: 80
     # targetMemoryUtilizationPercentage: 80
