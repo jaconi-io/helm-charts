@@ -1,5 +1,5 @@
 ---
-name: yamllint
+name: dagger
 
 # yamllint disable-line rule:truthy
 on:
@@ -7,6 +7,7 @@ on:
     branches:
       - main
     paths:
+      - "**.md"
       - "**.yml"
       - "**.yaml"
 
@@ -14,14 +15,13 @@ permissions:
   contents: read
 
 jobs:
-  yamllint:
+  dagger:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Install yamllint
-        run: sudo apt-get install yamllint
-
-      - name: Execute yamllint
-        run: yamllint .
+      - uses: actions/setup-go@v4
+        with:
+          go-version: ">=1.20"
+      - name: dagger
+        run: go run ci.go
