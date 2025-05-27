@@ -24,6 +24,17 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
+Common labels for all workloads
+*/}}
+{{- define "coturn.defaultLabels" -}}
+{{- if .Values.defaultLabels }}
+{{- range $key, $val := .Values.defaultLabels }}
+{{ $key }}: {{ $val }}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "coturn.chart" -}}
@@ -35,6 +46,7 @@ Common labels
 */}}
 {{- define "coturn.labels" -}}
 helm.sh/chart: {{ include "coturn.chart" . }}
+{{ include "coturn.defaultLabels" . }}
 {{ include "coturn.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}

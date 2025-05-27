@@ -1,6 +1,6 @@
 {{- if .Values.management.ingress.enabled -}}
-{{- $fullName := printf "%s-management" (include "netbird.fullname" .) -}}
-{{- $svcPort := .Values.management.service.port -}}
+{{- $fullName := printf "%s-management-grpc" (include "netbird.fullname" .) -}}
+{{- $serviceName := printf "%s-management" (include "netbird.fullname" .) -}}
 {{- if and .Values.management.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.management.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.management.ingress.annotations "kubernetes.io/ingress.class" .Values.management.ingress.className}}
@@ -18,44 +18,39 @@ metadata:
   name: {{ $fullName }}
   labels:
     {{- include "netbird.management.labels" . | nindent 4 }}
-  {{- with .Values.management.ingress.annotations }}
+  {{- if or (.Values.annotations.grpc) (.Values.management.ingress.annotations)}}
   annotations:
-    {{- toYaml . | nindent 4 }}
   {{- end }}
+    {{- with .Values.annotations.grpc }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.management.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   {{- if and .Values.management.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
   ingressClassName: {{ .Values.management.ingress.className }}
   {{- end }}
-  {{- if .Values.management.ingress.tls }}
+  {{- if .Values.management.ingress.hosts.grpc.tls.secretName }}
   tls:
-    {{- range .Values.management.ingress.tls }}
     - hosts:
-        {{- range .hosts }}
-        - {{ . | quote }}
-        {{- end }}
-      secretName: {{ .secretName }}
-    {{- end }}
+        - {{ .Values.management.ingress.hosts.grpc.host | quote }}
+      secretName: {{ .Values.management.ingress.hosts.grpc.tls.secretName }}
   {{- end }}
   rules:
-    {{- range .Values.management.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ .Values.management.ingress.hosts.grpc.host | quote }}
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}
-            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
-            pathType: {{ .pathType }}
-            {{- end }}
+          - path: /management.ManagementService/
+            pathType: ImplementationSpecific
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: {{ $fullName }}
+                name: {{ $serviceName }}
                 port:
-                  number: {{ $svcPort }}
+                  number: {{ .Values.management.service.port }}
               {{- else }}
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
+              serviceName: {{ $serviceName }}
+              servicePort: {{ .Values.management.service.port }}
               {{- end }}
-          {{- end }}
-    {{- end }}
 {{- end }}

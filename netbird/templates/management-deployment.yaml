@@ -42,9 +42,6 @@ spec:
               go install github.com/drone/envsubst/cmd/envsubst@latest &&
               envsubst < /tmp/netbird/management.tmpl.json > /etc/netbird/management.json &&
               cat /etc/netbird/management.json
-          envFrom:
-          - secretRef:
-              name: {{ .Values.relay.env.secretName }}
           env:
             - name: NETBIRD_SIGNAL_URI
               value: {{ .Values.signal.uri }}
@@ -65,6 +62,7 @@ spec:
                   name: {{ .name }}
                   key: {{ .key }}
             {{- end }}
+            {{- if ne .Values.idp.managerType "none" }}
             - name: NETBIRD_AUTH_OIDC_CONFIGURATION_ENDPOINT
               value: "{{ .Values.auth.authority }}/.well-known/openid-configuration"
             - name: NETBIRD_MGMT_API_CERT_FILE
@@ -75,6 +73,25 @@ spec:
               value: {{ .Values.auth.audience }}
             - name: NETBIRD_AUTH_USER_ID_CLAIM
               value: {{ .Values.auth.userIDClaim }}
+
+            - name: NETBIRD_IDP_CLIENT_ID
+              value: "{{ .Values.idp.clientID }}"
+            {{- if .Values.idp.secretKeyRef }}
+            {{- with .Values.idp.secretKeyRef }}
+            - name: NETBIRD_IDP_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .name }}
+                  key: {{ .key }}
+            {{- end }}
+            {{- else }}
+            - name: NETBIRD_IDP_CLIENT_SECRET
+              value: "{{ .Values.idp.clientSecret }}"
+            {{- end }}
+            - name: NETBIRD_IDP_GRANT_TYPE
+              value: "{{ .Values.idp.grantType }}"
+            {{- end }}
+
             # Device auth configuration.
             {{- if eq .Values.auth.device.provider "hosted" }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_PROVIDER
@@ -93,32 +110,14 @@ spec:
               value: "{{ default "openid" .Values.auth.device.scope }}"
             - name: NETBIRD_AUTH_DEVICE_AUTH_USE_ID_TOKEN
               value: "{{ default "false" .Values.auth.device.useIDToken }}"
+            - name: NETBIRD_AUTH_DEVICE_REDIRECT_URL
+              value: https://{{ .Values.management.ingress.hosts.api.host }}/
             {{- end }}
 
             # IDP configuration.
             - name: NETBIRD_IDP_MANAGER_TYPE
               value: "{{ .Values.idp.managerType }}"
               
-            {{- if ne .Values.idp.managerType "none" }}
-            - name: NETBIRD_IDP_CLIENT_ID
-              value: "{{ .Values.idp.clientID }}"
-            {{- if .Values.idp.secretKeyRef }}
-            {{- with .Values.idp.secretKeyRef }}
-            - name: NETBIRD_IDP_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .name }}
-                  key: {{ .key }}
-            {{- end }}
-            {{- else }}
-            - name: NETBIRD_IDP_CLIENT_SECRET
-              value: "{{ .Values.idp.clientSecret }}"
-            {{- end }}
-            
-            - name: NETBIRD_IDP_GRANT_TYPE
-              value: "{{ .Values.idp.grantType }}"
-            {{- end }}
-
             {{- if eq .Values.idp.managerType "auth0" }}
             - name: NETBIRD_IDP_AUTH0_AUDIENCE
               value: "{{ .Values.idp.audience }}"
@@ -132,6 +131,23 @@ spec:
             - name: NETBIRD_IDP_KEYCLOAK_TOKEN_ENDPOINT
               value: "{{ .Values.idp.tokenEndpoint }}"
             {{- end }}
+            
+            # Database Configuration
+            {{- if .Values.management.database.postgres }}
+            - name: NETBIRD_STORE_CONFIG_ENGINE
+              value: postgres
+            {{- end }}
+              
+            # Relay Configuration
+            - name: NETBIRD_RELAY_DOMAIN
+              value: {{ .Values.relay.domainName }}
+            - name: NETBIRD_RELAY_PORT
+              value: "{{ .Values.relay.service.port }}"
+            - name: NETBIRD_RELAY_AUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.relay.auth.secret.name }}
+                  key: {{ .Values.relay.auth.secret.key }}
 
           volumeMounts:
             - mountPath: /etc/netbird
@@ -146,14 +162,25 @@ spec:
           imagePullPolicy: {{ .Values.management.image.pullPolicy }}
           args:
             - --log-level
-            - info
+            - {{ .Values.management.logLevel }}
             - --log-file
             - console
             - --dns-domain
             - {{ .Values.management.dnsDomain }}
+          {{- if .Values.management.database.postgres }}
+          env:
+            - name: NETBIRD_STORE_ENGINE_POSTGRES_DSN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.management.database.postgres.dsnSecret.name }}
+                  key: {{ .Values.management.database.postgres.dsnSecret.key }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.management.service.port }}
+              protocol: TCP
+            - name: metrics
+              containerPort: 9090
               protocol: TCP
           resources:
             {{- toYaml .Values.management.resources | nindent 12 }}
