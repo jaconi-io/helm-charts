@@ -20,17 +20,20 @@
         "Secret": "secret",
         "TimeBasedCredentials": false
     },
+    "Relay": {
+        "Addresses": ["${NETBIRD_RELAY_DOMAIN}:${NETBIRD_RELAY_PORT}"],
+        "CredentialsTTL": "24h",
+        "Secret": "${NETBIRD_RELAY_AUTH_SECRET}"
+    },
+    "StoreConfig": {
+        "Engine": "${NETBIRD_STORE_CONFIG_ENGINE:-sqlite}"
+    },
     "Signal": {
         "Proto": "${NETBIRD_SIGNAL_PROTOCOL}",
         "URI": "${NETBIRD_SIGNAL_URI}",
         "Username": "",
         "Password": null
     },
-    "Relay": {
-        "Addresses": ["${NB_EXPOSED_ADDRESS}"],
-        "CredentialsTTL": "24h",
-        "Secret": "${NB_AUTH_SECRET}"
-    },    
     "Datadir": "",
     "HttpConfig": {
         "Address": "0.0.0.0:80",
@@ -61,7 +64,8 @@
             "Domain": "${NETBIRD_AUTH_DEVICE_AUTH_AUTHORITY}",
             "TokenEndpoint": "${NETBIRD_AUTH_DEVICE_AUTH_TOKEN_ENDPOINT}",
             "Scope": "${NETBIRD_AUTH_DEVICE_AUTH_SCOPE}",
-            "UseIDToken": ${NETBIRD_AUTH_DEVICE_AUTH_USE_ID_TOKEN:-false}
+            "UseIDToken": ${NETBIRD_AUTH_DEVICE_AUTH_USE_ID_TOKEN:-false},
+            "RedirectURLs": ["${NETBIRD_AUTH_DEVICE_REDIRECT_URL}"]
         }
     }
 }

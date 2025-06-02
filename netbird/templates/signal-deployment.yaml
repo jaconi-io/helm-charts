@@ -38,6 +38,9 @@ spec:
             - name: {{ .Values.signal.protocol }}
               containerPort: {{ .Values.signal.service.port }}
               protocol: TCP
+            - name: metrics
+              containerPort: 9090
+              protocol: TCP
           livenessProbe:
             tcpSocket:
               port: {{ .Values.signal.protocol }}

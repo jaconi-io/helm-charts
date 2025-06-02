@@ -64,6 +64,17 @@ nameOverride: ""
 ##
 fullnameOverride: ""
 
+## @param defaultLabels Defines default labels for all created resources.
+##
+defaultLabels: {}
+
+annotations:
+  ## @param annotations.grpc Defines ingress annotations for grpc handling
+  ##
+  grpc:
+    {}
+    # nginx.ingress.kubernetes.io/backend-protocol: GRPC
+
 ## @section NetBird Management
 
 management:
@@ -71,7 +82,8 @@ management:
   ##
   logLevel: info
 
-  ## @param management.replicaCount
+  # yamllint disable-line rule:line-length
+  ## @param management.replicaCount note that scaling requires a shared filesystem
   ##
   replicaCount: 1
 
@@ -144,6 +156,11 @@ management:
     ##
     port: 80
 
+  metrics:
+    ## @param management.metrics.port path is /metrics
+    ##
+    port: 9090
+
   ingress:
     ## @param management.ingress.enabled
     ##
@@ -161,22 +178,30 @@ management:
       # kubernetes.io/tls-acme: "true"
 
     hosts:
-      ## @param management.ingress.hosts[0].host
-      ##
-      - host: example.com
-        paths:
-          ## @param management.ingress.hosts[0].paths[0].path
-          ##
-          - path: /
-            ## @param management.ingress.hosts[0].paths[0].pathType
-            ##
-            pathType: ImplementationSpecific
-    ## @param management.ingress.tls
-    ##
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
+      api:
+        ## @param management.ingress.hosts.api.host Hostname to access the API.
+        ##
+        host: example.com
+        # yamllint disable-line rule:line-length
+        ## @param management.ingress.hosts.api.tls Optional TLS secret information
+        ##
+        tls:
+          {}
+          # secretName: chart-example-tls
+          #
+
+      grpc:
+        # yamllint disable-line rule:line-length
+        ## @param management.ingress.hosts.grpc.host Hostname to run GRPC calls againts.
+        ##
+        host: example.com
+        # yamllint disable-line rule:line-length
+        ## @param management.ingress.hosts.grpc.tls Optional TLS secret information
+        ##
+        tls:
+          {}
+          # secretName: chart-example-tls
+          #
 
   ## @param management.resources
   ##
@@ -234,6 +259,10 @@ management:
     accessModes:
       - ReadWriteOnce
 
+    ## @param management.persistentVolume.storageClass
+    ##
+    storageClass:
+
     ## @param management.persistentVolume.size
     ##
     size: 100Mi
@@ -241,6 +270,20 @@ management:
   ## @param management.dnsDomain
   ##
   dnsDomain: netbird.selfhosted
+
+  ## @param management.database leave empty to use sqlite
+  ##
+  database:
+    {}
+    # yamllint disable rule:line-length
+    # Postgres secret requires the following format:
+    # host=<PG_HOST> user=<PG_USER> password=<PG_PASSWORD> dbname=<PG_DB_NAME> port=<PG_PORT>
+    # postgres:
+    #   dsnSecret:
+    #     name:
+    #     key:
+    #
+    # yamllint enable rule:line-length
 
 ## @section NetBird Signal
 
@@ -328,6 +371,11 @@ signal:
     ##
     port: 80
 
+  metrics:
+    ## @param signal.metrics.port path is /metrics
+    ##
+    port: 9090
+
   ingress:
     ## @param signal.ingress.enabled
     ##
@@ -347,20 +395,11 @@ signal:
     hosts:
       ## @param signal.ingress.hosts[0].host
       ##
-      - host: example.com
-        paths:
-          ## @param signal.ingress.hosts[0].paths[0].path
-          ##
-          - path: /
-            ## @param signal.ingress.hosts[0].paths[0].pathType
-            ##
-            pathType: ImplementationSpecific
-    ## @param signal.ingress.tls
-    ##
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
+      signal:
+        host: example.com
+        tls:
+          {}
+          # secretName: chart-example-tls
 
   ## @param signal.resources
   ##
@@ -418,6 +457,10 @@ signal:
     accessModes:
       - ReadWriteOnce
 
+    ## @param signal.persistentVolume.storageClass
+    ##
+    storageClass:
+
     ## @param signal.persistentVolume.size
     ##
     size: 100Mi
@@ -429,11 +472,15 @@ relay:
   ##
   logLevel: info
 
-  env:
-    # yamllint disable-line rule:line-length
-    ## @param relay.env.secretName Must contain NB_EXPOSED_ADDRESS and NB_AUTH_SECRET values.
-    ##
-    secretName: netbird-relay-secret
+  domainName: relay.example.com
+
+  auth:
+    secret:
+      # yamllint disable-line rule:line-length
+      ## @param relay.auth.secret. See https://github.com/netbirdio/netbird/releases/tag/v0.29.0
+      ##
+      name: netbird-relay-secret
+      key: netbird-relay-secret-key
 
   ## @param relay.replicaCount
   ##
@@ -507,6 +554,18 @@ relay:
     ##
     port: 33080
 
+    ## @param relay.service.annotations
+    ##
+    annotations:
+      {}
+      # external-dns.alpha.kubernetes.io/hostname: relay.example.com
+      #
+
+  metrics:
+    ## @param relay.metrics.port path is the base path /
+    ##
+    port: 9090
+
   ingress:
     ## @param relay.ingress.enabled
     ##
@@ -535,6 +594,7 @@ relay:
             ## @param relay.ingress.hosts[0].paths[0].pathType
             ##
             pathType: ImplementationSpecific
+
     ## @param relay.ingress.tls
     ##
     tls: []

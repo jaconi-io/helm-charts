@@ -31,10 +31,22 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
+Common labels for all workloads
+*/}}
+{{- define "netbird.defaultLabels" -}}
+{{- if .Values.defaultLabels }}
+{{- range $key, $val := .Values.defaultLabels }}
+{{ $key }}: {{ $val }}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Common management labels
 */}}
 {{- define "netbird.management.labels" -}}
 helm.sh/chart: {{ include "netbird.chart" . }}
+{{ include "netbird.defaultLabels" . }}
 {{ include "netbird.management.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
@@ -47,6 +59,7 @@ Common signal labels
 */}}
 {{- define "netbird.signal.labels" -}}
 helm.sh/chart: {{ include "netbird.chart" . }}
+{{ include "netbird.defaultLabels" . }}
 {{ include "netbird.signal.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
@@ -59,6 +72,7 @@ Common relay labels
 */}}
 {{- define "netbird.relay.labels" -}}
 helm.sh/chart: {{ include "netbird.chart" . }}
+{{ include "netbird.defaultLabels" . }}
 {{ include "netbird.relay.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
