@@ -393,10 +393,14 @@ signal:
       # kubernetes.io/tls-acme: "true"
 
     hosts:
-      ## @param signal.ingress.hosts[0].host
-      ##
       signal:
+
+        ## @param signal.ingress.hosts.signal.host
+        ##
         host: example.com
+
+        ## @param signal.ingress.hosts.signal.tls
+        ##
         tls:
           {}
           # secretName: chart-example-tls
@@ -472,14 +476,19 @@ relay:
   ##
   logLevel: info
 
+  ## @param relay.domainName
+  ##
   domainName: relay.example.com
 
   auth:
     secret:
       # yamllint disable-line rule:line-length
-      ## @param relay.auth.secret. See https://github.com/netbirdio/netbird/releases/tag/v0.29.0
+      ## @param relay.auth.secret.name See https://github.com/netbirdio/netbird/releases/tag/v0.29.0
       ##
       name: netbird-relay-secret
+      # yamllint disable-line rule:line-length
+      ## @param relay.auth.secret.key See https://github.com/netbirdio/netbird/releases/tag/v0.29.0
+      ##
       key: netbird-relay-secret-key
 
   ## @param relay.replicaCount
