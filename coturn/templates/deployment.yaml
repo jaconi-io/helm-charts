@@ -36,8 +36,6 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
-            - --listening-port=3478
-            - --tls-listening-port=5349
             {{- if .Values.fingerprint }}
             - --fingerprint
             {{- end }}
@@ -48,8 +46,8 @@ spec:
             - --user={{ $user.name }}:$${{ printf "COTURN_USER_%s_KEY" $user.name }}
             {{- end }}
             {{- if .Values.certificate.enabled }}
-            - --cert=/usr/local/etc/tls.crt
-            - --pkey=/usr/local/etc/tls.key
+            - --cert=/etc/ssl/certs/cert.pem
+            - --pkey=/etc/ssl/private/privkey.pem
             {{- else }}
             {{- if .Values.cert }}
             - --cert={{ .Values.cert }}
@@ -103,8 +101,10 @@ spec:
               name: config
               subPath: turnserver.conf
             {{- if .Values.certificate.enabled }}
-            - mountPath: /usr/local/etc
+            - mountPath: /etc/ssl/certs
               name: certs
+            - mountPath: /etc/ssl/private
+              name: private
             {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -130,4 +130,13 @@ spec:
         - name: certs
           secret:
             secretName: {{ include "coturn.fullname" . }}
+            items:
+              - key: tls.crt
+                path: cert.pem
+        - name: private
+          secret:
+            secretName: {{ include "coturn.fullname" . }}
+            items:
+              - key: tls.key
+                path: privkey.pem
         {{- end }}
