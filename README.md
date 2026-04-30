@@ -14,42 +14,6 @@ Create a [kind](https://kind.sigs.k8s.io) cluster:
 kind create cluster --config kind.yaml
 ```
 
-Install [MetalLB](https://metallb.io) in the created cluster:
-
-```shell
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.15.2/config/manifests/metallb-native.yaml
-```
-
-Determine the kind IP range:
-
-```shell
-docker network inspect -f '{{ .IPAM.Config }}' kind
-```
-
-Configure an IP address pool for MetalLB:
-
-```shell
-kubectl apply -f - << EOF
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  name: kind
-  namespace: metallb-system
-spec:
-  addresses:
-    - 172.18.255.200-172.18.255.250
----
-apiVersion: metallb.io/v1beta1
-kind: L2Advertisement
-metadata:
-  name: kind
-  namespace: metallb-system
-spec:
-  ipAddressPools:
-    - kind
-EOF
-```
-
 Start [Keycloak](https://www.keycloak.org):
 
 ```shell
@@ -98,16 +62,16 @@ Create the `netbird-relay-secret`:
 kubectl create secret generic -n netbird netbird-relay-secret --from-literal=netbird-relay-secret-key=t0pS3cr37!
 ```
 
-Forward the NetBird management server to port `8081`:
+Forward the NetBird dashboard to port `8081`:
 
 ```shell
-kubectl port-forward -n netbird service/netbird-management 8081:80
+kubectl port-forward -n netbird-dashboard service/netbird-dashboard 8081:80
 ```
 
-Forward the NetBird dashboard to port `8080`:
+Forward the NetBird management server to port `8082`:
 
 ```shell
-kubectl port-forward -n netbird-dashboard service/netbird-dashboard 8080:80
+kubectl port-forward -n netbird service/netbird-management 8082:80
 ```
 
 Forward the NetBird signal server to port `10000`:
@@ -119,5 +83,8 @@ kubectl port-forward -n netbird service/netbird-signal 10000:80
 Join the network by running
 
 ```shell
-netbird up --management-url http://localhost:8081 --admin-url http://localhost:8080
+netbird up --admin-url http://localhost:8081 --management-url http://localhost:8082
 ```
+
+Access the NetBird dashboard at [http://localhost:8081](http://localhost:8081). When redirected to Keycloak, use
+`admin:admin` as your credentials.

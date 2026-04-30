@@ -4,11 +4,11 @@
 auth:
   ## @param auth.audience
   ##
-  audience: account
+  audience: netbird-management
 
   ## @param auth.authority
   ##
-  authority: http://keycloak.localtest.me:9000/realms/helm-charts
+  authority: http://keycloak.localtest.me:8080/realms/helm-charts
   # authority: https://<tenant-name>.us.auth0.com
 
   device:
@@ -27,20 +27,21 @@ auth:
 idp:
   ## @param idp.managerType none, keycloak, or auth0
   ##
-  managerType: none
-  # clientID:
+  managerType: keycloak
+  clientID: netbird-management
+  clientSecret: t0pS3cr37!
   # secretKeyRef:
   #   name: idp-credentials
   #   key: secretkey
-  # grantType:
+  grantType: client_credentials
 
   # Auth0
   # audience:
   # authIssuer:
 
   # Keycloak
-  # adminEndpoint:
-  # tokenEndpoint:
+  adminEndpoint: http://keycloak.localtest.me:8080/admin/realms/helm-charts
+  tokenEndpoint: http://keycloak.localtest.me:8080/realms/helm-charts/protocol/openid-connect/token
 
 stun:
   ## @param stun.uri
