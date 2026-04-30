@@ -92,6 +92,12 @@ done
 
 ## NetBird
 
+Create the `netbird-relay-secret`:
+
+```shell
+kubectl create secret generic -n netbird netbird-relay-secret --from-literal=netbird-relay-secret-key=t0pS3cr37!
+```
+
 Forward the NetBird management server to port `8081`:
 
 ```shell
