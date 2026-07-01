@@ -26,25 +26,25 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "netbird.relay.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml .Values.relay.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}-relay
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.relay.securityContext | nindent 12 }}
           image: "{{ .Values.relay.image.repository }}:{{ .Values.relay.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.relay.image.pullPolicy }}
           env:
             - name: NB_LOG_LEVEL
-              value: {{ .Values.relay.logLevel }}
+              value: {{ .Values.relay.logLevel | quote }}
             - name: NB_LISTEN_ADDRESS
               value: ":{{ .Values.relay.service.port }}"
             - name: NB_EXPOSED_ADDRESS
-              value: "{{ .Values.relay.domainName }}:{{ .Values.relay.service.port }}"
+              value: "{{ .Values.relay.endpoint }}:{{ .Values.relay.service.port }}"
             - name: NB_AUTH_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.relay.auth.secret.name }}
-                  key: {{ .Values.relay.auth.secret.key }}
+                  name: {{ .Values.relay.secretKeyRef.name }}
+                  key: {{ .Values.relay.secretKeyRef.key }}
           args: ["--log-file", "console"]
           ports:
             - name: quic

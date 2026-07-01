@@ -43,43 +43,83 @@ spec:
               envsubst < /tmp/netbird/management.tmpl.json > /etc/netbird/management.json &&
               cat /etc/netbird/management.json
           env:
-            - name: NETBIRD_SIGNAL_URI
-              value: {{ .Values.signal.uri }}
-            - name: NETBIRD_SIGNAL_PROTOCOL
-              value: {{ .Values.signal.protocol }}
-            - name: NETBIRD_STUN_URI
-              value: {{ .Values.stun.uri }}
-            - name: NETBIRD_TURN_URI
-              value: {{ .Values.turn.uri }}
-            {{- with .Values.turn.user }}
-            - name: NETBIRD_TURN_USER
-              value: {{ . }}
-            {{- end }}
+            # General configuration.
+            - name: NETBIRD_DOMAIN
+              value: {{ .Values.domain | quote }}
+
+            # STUN and TURN configuration.
+            - name: TURN_DOMAIN
+              value: {{ .Values.turn.domain | quote }}
+            - name: TURN_USER
+              value: {{ default "" .Values.turn.user | quote }}
             {{- with .Values.turn.secretKeyRef }}
-            - name: NETBIRD_TURN_PASSWORD
+            - name: TURN_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .name }}
                   key: {{ .key }}
+            {{- else }}
+            - name: TURN_PASSWORD
+              value: ""
             {{- end }}
-            {{- if ne .Values.idp.managerType "none" }}
+
+            # Relay Configuration
+            - name: NETBIRD_RELAY_ENDPOINT
+              value: {{ .Values.relay.endpoint | quote }}
+            {{- with .Values.relay.secretKeyRef }}
+            - name: NETBIRD_RELAY_AUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .name }}
+                  key: {{ .key }}
+            {{- else }}
+            - name: NETBIRD_RELAY_AUTH_SECRET
+              value: ""
+            {{- end }}
+
+            # Signal Configuration
+            - name: NETBIRD_SIGNAL_PORT
+              value: {{ .Values.signal.port | quote }}
+            - name: NETBIRD_SIGNAL_PROTOCOL
+              value: {{ .Values.signal.protocol | quote }}
+
+            - name: NETBIRD_MGMT_DISABLE_DEFAULT_POLICY
+              value: {{ .Values.disableDefaultPolicy | quote }}
+
+            {{- with .Values.datastore.encryptionKey.secretKeyRef }}
+            - name: NETBIRD_DATASTORE_ENC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .name }}
+                  key: {{ .key }}
+            {{- else }}
+            - name: NETBIRD_DATASTORE_ENC_KEY
+              value: ""
+            {{- end }}
+
             - name: NETBIRD_AUTH_OIDC_CONFIGURATION_ENDPOINT
-              value: "{{ .Values.auth.authority }}/.well-known/openid-configuration"
+              value: {{ default (printf "%s/.well-known/openid-configuration" .Values.auth.authority) .Values.auth.oidcConfigEndpoint | quote }}
             - name: NETBIRD_MGMT_API_CERT_FILE
-              value: ""
+              value: {{ .Values.management.tls.certFile | quote }}
             - name: NETBIRD_MGMT_API_CERT_KEY_FILE
-              value: ""
+              value: {{ .Values.management.tls.certKeyFile | quote }}
+            - name: NETBIRD_MGMT_API_PORT
+              value: {{ .Values.management.service.port | quote }}
+            - name: NETBIRD_MGMT_IDP_SIGNKEY_REFRESH
+              value: {{ .Values.management.idpSignKeyRefreshEnabled | quote }}
             - name: NETBIRD_AUTH_AUTHORITY
-              value: "{{ .Values.auth.authority }}"
+              value: {{ .Values.auth.authority | quote }}
             - name: NETBIRD_AUTH_AUDIENCE
-              value: {{ .Values.auth.audience }}
+              value: {{ .Values.auth.audience | quote }}
+            - name: NETBIRD_AUTH_JWT_CERTS
+              value: {{ .Values.auth.jwtCerts | quote }}
             - name: NETBIRD_AUTH_TOKEN_ENDPOINT
-              value: "{{ .Values.auth.tokenEndpoint }}"
+              value: {{ .Values.auth.tokenEndpoint | quote }}
             - name: NETBIRD_AUTH_USER_ID_CLAIM
-              value: {{ .Values.auth.userIDClaim }}
+              value: {{ .Values.auth.userIDClaim | quote }}
 
             - name: NETBIRD_IDP_MGMT_CLIENT_ID
-              value: "{{ .Values.idp.clientID }}"
+              value: {{ default "" .Values.idp.clientID | quote }}
             {{- if .Values.idp.secretKeyRef }}
             {{- with .Values.idp.secretKeyRef }}
             - name: NETBIRD_IDP_MGMT_CLIENT_SECRET
@@ -90,57 +130,78 @@ spec:
             {{- end }}
             {{- else }}
             - name: NETBIRD_IDP_MGMT_CLIENT_SECRET
-              value: "{{ .Values.idp.clientSecret }}"
+              value: {{ default "" .Values.idp.clientSecret | quote }}
             {{- end }}
-            {{- end }}
+            - name: NETBIRD_IDP_MGMT_EXTRA_CONFIG
+              {{- if .Values.idp.extraConfig }}
+              value: {{ .Values.idp.extraConfig | toJson | quote }}
+              {{- else if eq .Values.idp.managerType "keycloak" }}
+              value: {{ dict "AdminEndpoint" .Values.idp.adminEndpoint | toJson | quote }}
+              {{- else }}
+              value: "{}"
+              {{- end }}
 
             # Device auth configuration.
-            {{- if eq .Values.auth.device.provider "hosted" }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_PROVIDER
-              value: {{ .Values.auth.device.provider }}
+              value: {{ .Values.auth.device.provider | quote }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_AUDIENCE
-              value: "{{ .Values.auth.device.audience }}"
-            - name: NETBIRD_AUTH_DEVICE_AUTH_AUTHORITY
-              value: "{{ .Values.auth.device.authority }}"
+              value: {{ default "" .Values.auth.device.audience | quote }}
+            - name: NETBIRD_AUTH0_DOMAIN
+              value: {{ default "" .Values.auth.device.auth0Domain | quote }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_CLIENT_ID
-              value: "{{ .Values.auth.device.clientID }}"
-            - name: NETBIRD_AUTH_DEVICE_AUTH_DEVICE_AUTHORIZATION_ENDPOINT
-              value: "{{ .Values.auth.device.deviceAuthorizationEndpoint }}"
-            - name: NETBIRD_AUTH_DEVICE_AUTH_TOKEN_ENDPOINT
-              value: "{{ .Values.auth.device.tokenEndpoint }}"
+              value: {{ default "" .Values.auth.device.clientID | quote }}
+            - name: NETBIRD_AUTH_DEVICE_AUTH_ENDPOINT
+              value: {{ default "" .Values.auth.device.deviceAuthorizationEndpoint | quote }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_SCOPE
-              value: "{{ default "openid" .Values.auth.device.scope }}"
+              value: {{ default "openid" .Values.auth.device.scope | quote }}
             - name: NETBIRD_AUTH_DEVICE_AUTH_USE_ID_TOKEN
-              value: "{{ default "false" .Values.auth.device.useIDToken }}"
-            - name: NETBIRD_AUTH_DEVICE_REDIRECT_URL
-              value: https://{{ .Values.management.ingress.hosts.api.host }}/
-            {{- end }}
+              value: {{ default false .Values.auth.device.useIDToken | quote }}
 
             # IDP configuration.
-            - name: NETBIRD_IDP_MANAGER_TYPE
-              value: "{{ .Values.idp.managerType }}"
-
-            {{- if eq .Values.idp.managerType "keycloak" }}
-            - name: NETBIRD_IDP_KEYCLOAK_ADMIN_ENDPOINT
-              value: "{{ .Values.idp.adminEndpoint }}"
-            {{- end }}
+            - name: NETBIRD_MGMT_IDP
+              value: {{ .Values.idp.managerType | quote }}
 
             # Database Configuration
-            {{- if .Values.management.database.postgres }}
             - name: NETBIRD_STORE_CONFIG_ENGINE
+              {{- if .Values.management.database.postgres }}
               value: postgres
-            {{- end }}
+              {{- else }}
+              value: sqlite
+              {{- end }}
 
-            # Relay Configuration
-            - name: NETBIRD_RELAY_DOMAIN
-              value: {{ .Values.relay.domainName }}
-            - name: NETBIRD_RELAY_PORT
-              value: "{{ .Values.relay.service.port }}"
-            - name: NETBIRD_RELAY_AUTH_SECRET
+            # PKCE auth configuration.
+            - name: NETBIRD_AUTH_PKCE_AUDIENCE
+              value: {{ default .Values.auth.audience .Values.auth.pkce.audience | quote }}
+            - name: NETBIRD_AUTH_CLIENT_ID
+              value: {{ .Values.auth.clientID | quote }}
+            {{- if .Values.auth.secretKeyRef }}
+            {{- with .Values.auth.secretKeyRef }}
+            - name: NETBIRD_AUTH_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.relay.auth.secret.name }}
-                  key: {{ .Values.relay.auth.secret.key }}
+                  name: {{ .name }}
+                  key: {{ .key }}
+            {{- end }}
+            {{- else }}
+            - name: NETBIRD_AUTH_CLIENT_SECRET
+              value: {{ .Values.auth.clientSecret | quote }}
+            {{- end }}
+            - name: NETBIRD_AUTH_PKCE_AUTHORIZATION_ENDPOINT
+              value: {{ .Values.auth.pkce.authorizationEndpoint | quote }}
+            - name: NETBIRD_AUTH_SUPPORTED_SCOPES
+              value: {{ .Values.auth.pkce.scope | quote }}
+            - name: NETBIRD_AUTH_PKCE_REDIRECT_URLS
+              {{- $redirectURLs := list -}}
+              {{- range .Values.auth.pkce.redirectURLs }}
+              {{- $redirectURLs = append $redirectURLs (. | quote) }}
+              {{- end }}
+              value: {{ join "," $redirectURLs | quote }}
+            - name: NETBIRD_AUTH_PKCE_USE_ID_TOKEN
+              value: {{ .Values.auth.pkce.useIDToken | quote }}
+            - name: NETBIRD_AUTH_PKCE_DISABLE_PROMPT_LOGIN
+              value: {{ .Values.auth.pkce.disablePromptLogin | quote }}
+            - name: NETBIRD_AUTH_PKCE_LOGIN_FLAG
+              value: {{ .Values.auth.pkce.loginFlag | quote }}
 
           volumeMounts:
             - mountPath: /etc/netbird
