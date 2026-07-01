@@ -11,6 +11,8 @@ auth:
   authority: http://keycloak.localtest.me:9000/realms/helm-charts
   # authority: https://<tenant-name>.us.auth0.com
 
+  ## @param auth.tokenEndpoint the endpoint used by NetBird to validate tokens presented by clients and peers
+  ##
   tokenEndpoint: >-
     http://keycloak.localtest.me:9000/realms/helm-charts/protocol/openid-connect/token
 
@@ -42,6 +44,8 @@ idp:
   # authIssuer:
 
   # Keycloak
+  ## @param auth.tokenEndpoint the endpoint used by NetBird to fetch users from Keycloak
+  ##
   adminEndpoint: http://keycloak.localtest.me:9000/admin/realms/helm-charts
 
 stun:
