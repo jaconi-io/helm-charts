@@ -712,6 +712,7 @@
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
+      "secret": "t0pS3cr37!",
       "redirectUris": [
         "http://localhost:8080/*"
       ],
@@ -724,8 +725,8 @@
       "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": false,
-      "serviceAccountsEnabled": false,
-      "publicClient": true,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
       "frontchannelLogout": true,
       "protocol": "openid-connect",
       "attributes": {
@@ -740,6 +741,7 @@
       "nodeReRegistrationTimeout": -1,
       "defaultClientScopes": [
         "web-origins",
+        "service_account",
         "acr",
         "roles",
         "profile",
@@ -2335,6 +2337,16 @@
       ],
       "notBefore": 0,
       "groups": []
+    },
+    {
+      "username": "service-account-netbird-management",
+      "enabled": true,
+      "serviceAccountClientId": "netbird-management",
+      "clientRoles": {
+        "realm-management": [
+          "view-users"
+        ]
+      }
     }
   ]
 }

@@ -37,6 +37,7 @@
     "Datadir": "",
     "HttpConfig": {
         "Address": "0.0.0.0:80",
+        "AuthIssuer": "${NETBIRD_AUTH_AUTHORITY}",
         "AuthAudience": "${NETBIRD_AUTH_AUDIENCE}",
         "AuthUserIDClaim": "${NETBIRD_AUTH_USER_ID_CLAIM:-sub}",
         "CertFile": "${NETBIRD_MGMT_API_CERT_FILE}",
@@ -45,14 +46,15 @@
     },
     "IdpManagerConfig": {
         "ManagerType": "${NETBIRD_IDP_MANAGER_TYPE}",
-        "${NETBIRD_IDP_MANAGER_TYPE^}ClientCredentials": {
-            "ClientID": "${NETBIRD_IDP_CLIENT_ID}",
-            "ClientSecret": "${NETBIRD_IDP_CLIENT_SECRET}",
-            "GrantType": "${NETBIRD_IDP_GRANT_TYPE}",
-            "Audience": "${NETBIRD_IDP_AUTH0_AUDIENCE}",
-            "AuthIssuer": "${NETBIRD_IDP_AUTH0_AUTH_ISSUER}",
-            "AdminEndpoint": "${NETBIRD_IDP_KEYCLOAK_ADMIN_ENDPOINT}",
-            "TokenEndpoint": "${NETBIRD_IDP_KEYCLOAK_TOKEN_ENDPOINT}"
+        "ClientConfig": {
+            "Issuer": "${NETBIRD_AUTH_AUTHORITY}",
+            "TokenEndpoint": "${NETBIRD_AUTH_TOKEN_ENDPOINT}",
+            "ClientID": "${NETBIRD_IDP_MGMT_CLIENT_ID}",
+            "ClientSecret": "${NETBIRD_IDP_MGMT_CLIENT_SECRET}",
+            "GrantType": "client_credentials"
+        },
+        "ExtraConfig": {
+            "AdminEndpoint": "${NETBIRD_IDP_KEYCLOAK_ADMIN_ENDPOINT}"
         }
     },
     "DeviceAuthorizationFlow": {

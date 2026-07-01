@@ -69,27 +69,29 @@ spec:
               value: ""
             - name: NETBIRD_MGMT_API_CERT_KEY_FILE
               value: ""
+            - name: NETBIRD_AUTH_AUTHORITY
+              value: "{{ .Values.auth.authority }}"
             - name: NETBIRD_AUTH_AUDIENCE
               value: {{ .Values.auth.audience }}
+            - name: NETBIRD_AUTH_TOKEN_ENDPOINT
+              value: "{{ .Values.auth.tokenEndpoint }}"
             - name: NETBIRD_AUTH_USER_ID_CLAIM
               value: {{ .Values.auth.userIDClaim }}
 
-            - name: NETBIRD_IDP_CLIENT_ID
+            - name: NETBIRD_IDP_MGMT_CLIENT_ID
               value: "{{ .Values.idp.clientID }}"
             {{- if .Values.idp.secretKeyRef }}
             {{- with .Values.idp.secretKeyRef }}
-            - name: NETBIRD_IDP_CLIENT_SECRET
+            - name: NETBIRD_IDP_MGMT_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ .name }}
                   key: {{ .key }}
             {{- end }}
             {{- else }}
-            - name: NETBIRD_IDP_CLIENT_SECRET
+            - name: NETBIRD_IDP_MGMT_CLIENT_SECRET
               value: "{{ .Values.idp.clientSecret }}"
             {{- end }}
-            - name: NETBIRD_IDP_GRANT_TYPE
-              value: "{{ .Values.idp.grantType }}"
             {{- end }}
 
             # Device auth configuration.
@@ -117,27 +119,18 @@ spec:
             # IDP configuration.
             - name: NETBIRD_IDP_MANAGER_TYPE
               value: "{{ .Values.idp.managerType }}"
-              
-            {{- if eq .Values.idp.managerType "auth0" }}
-            - name: NETBIRD_IDP_AUTH0_AUDIENCE
-              value: "{{ .Values.idp.audience }}"
-            - name: NETBIRD_IDP_AUTH0_AUTH_ISSUER
-              value: "{{ .Values.idp.authIssuer }}"
-            {{- end }}
 
             {{- if eq .Values.idp.managerType "keycloak" }}
             - name: NETBIRD_IDP_KEYCLOAK_ADMIN_ENDPOINT
               value: "{{ .Values.idp.adminEndpoint }}"
-            - name: NETBIRD_IDP_KEYCLOAK_TOKEN_ENDPOINT
-              value: "{{ .Values.idp.tokenEndpoint }}"
             {{- end }}
-            
+
             # Database Configuration
             {{- if .Values.management.database.postgres }}
             - name: NETBIRD_STORE_CONFIG_ENGINE
               value: postgres
             {{- end }}
-              
+
             # Relay Configuration
             - name: NETBIRD_RELAY_DOMAIN
               value: {{ .Values.relay.domainName }}
