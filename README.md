@@ -14,42 +14,6 @@ Create a [kind](https://kind.sigs.k8s.io) cluster:
 kind create cluster --config kind.yaml
 ```
 
-Install [MetalLB](https://metallb.io) in the created cluster:
-
-```shell
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.15.2/config/manifests/metallb-native.yaml
-```
-
-Determine the kind IP range:
-
-```shell
-docker network inspect -f '{{ .IPAM.Config }}' kind
-```
-
-Configure an IP address pool for MetalLB:
-
-```shell
-kubectl apply -f - << EOF
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  name: kind
-  namespace: metallb-system
-spec:
-  addresses:
-    - 172.18.255.200-172.18.255.250
----
-apiVersion: metallb.io/v1beta1
-kind: L2Advertisement
-metadata:
-  name: kind
-  namespace: metallb-system
-spec:
-  ipAddressPools:
-    - kind
-EOF
-```
-
 Start [Keycloak](https://www.keycloak.org):
 
 ```shell
@@ -59,17 +23,10 @@ docker compose up --detach
 Update the Netbird configuration like this:
 
 ```yaml
-auth:
-  device:
-    # provider: none
-    provider: hosted
-    audience: account
-    authority: http://localhost
-    clientID: netbird-management
-    deviceAuthorizationEndpoint: http://localhost/auth/device
-    tokenEndpoint: http://localhost/token
-    scope: openid
-    useIDToken: false
+idp:
+  managerType: keycloak
+  clientID: netbird-management
+  clientSecret: t0pS3cr37!
 ```
 
 Install the Helm charts for testing:
