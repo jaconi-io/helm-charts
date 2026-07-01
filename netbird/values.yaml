@@ -32,7 +32,7 @@ auth:
 idp:
   ## @param idp.managerType none, keycloak, or auth0
   ##
-  # managerType: none
+  managerType: none
   # clientID: netbird-management
   # clientSecret: t0pS3cr37!
   # secretKeyRef:
