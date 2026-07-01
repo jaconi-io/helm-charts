@@ -1,7 +1,31 @@
 ---
 ## @section NetBird Parameters
 
+## @param domain
+##
+domain: localhost
+
+## @param disableDefaultPolicy
+##
+disableDefaultPolicy: false
+
+datastore:
+  encryptionKey:
+    secretKeyRef:
+      ## @param datastore.encryptionKey.secretKeyRef.name
+      name: datastore
+      ## @param datastore.encryptionKey.secretKeyRef.key
+      key: key
+
 auth:
+  ## @param auth.clientID
+  ##
+  clientID: ""
+
+  ## @param auth.clientSecret
+  ##
+  clientSecret: ""
+
   ## @param auth.audience
   ##
   audience: account
@@ -17,6 +41,47 @@ auth:
   tokenEndpoint: >-
     http://keycloak.localtest.me:9000/realms/helm-charts/protocol/openid-connect/token
 
+  ## @param auth.jwtCerts
+  ##
+  jwtCerts: ""
+
+  ## @param auth.userIDClaim
+  ##
+  userIDClaim: sub
+
+  ## @param auth.oidcConfigEndpoint
+  ##
+  oidcConfigEndpoint: ""
+
+  pkce:
+    ## @param auth.pkce.audience
+    ##
+    audience: ""
+
+    ## @param auth.pkce.authorizationEndpoint
+    ##
+    authorizationEndpoint: ""
+
+    ## @param auth.pkce.redirectURLs
+    ##
+    redirectURLs: []
+
+    ## @param auth.pkce.scope
+    ##
+    scope: openid
+
+    ## @param auth.pkce.useIDToken
+    ##
+    useIDToken: false
+
+    ## @param auth.pkce.disablePromptLogin
+    ##
+    disablePromptLogin: false
+
+    ## @param auth.pkce.loginFlag
+    ##
+    loginFlag: 0
+
   device:
     ## @param auth.device.provider
     ##
@@ -24,6 +89,7 @@ auth:
     # provider: hosted
     # audience: account
     # authority: http://localhost
+    # auth0Domain: example.us.auth0.com
     # clientID: netbird-management
     # deviceAuthorizationEndpoint: http://localhost/auth/device
     # tokenEndpoint: http://localhost/token
@@ -34,8 +100,13 @@ idp:
   ## @param idp.managerType none, keycloak, or auth0
   ##
   managerType: none
-  # clientID: netbird-management
-  # clientSecret: t0pS3cr37!
+
+  ## @param idp.clientID
+  clientID: ""
+
+  ## @param idp.clientSecret
+  clientSecret: ""
+
   # secretKeyRef:
   #   name: idp-credentials
   #   key: secretkey
@@ -44,21 +115,20 @@ idp:
   # audience:
   # authIssuer:
 
+  ## @param idp.extraConfig Extra IdP manager config rendered as JSON.
+  ##
+  extraConfig: {}
+
   # Keycloak
   # yamllint disable-line rule:line-length
   ## @param idp.adminEndpoint the endpoint used by NetBird to fetch users from Keycloak
   ##
   adminEndpoint: http://keycloak.localtest.me:9000/admin/realms/helm-charts
 
-stun:
-  ## @param stun.uri
-  ##
-  uri: stun:localhost:3478
-
 turn:
-  ## @param turn.uri
+  ## @param turn.domain the domain used for STUN and TURN
   ##
-  uri: turn:localhost:3478
+  domain: localhost
   # user: turn-user
   # secretKeyRef:
   #   name: turn-credentials
@@ -89,6 +159,23 @@ management:
   ## @param management.logLevel
   ##
   logLevel: info
+
+  ## @param management.dnsDomain
+  ##
+  dnsDomain: netbird.selfhosted
+
+  ## @param management.idpSignKeyRefreshEnabled
+  ##
+  idpSignKeyRefreshEnabled: false
+
+  tls:
+    ## @param management.tls.certFile
+    ##
+    certFile: ""
+
+    ## @param management.tls.certKeyFile
+    ##
+    certKeyFile: ""
 
   # yamllint disable-line rule:line-length
   ## @param management.replicaCount note that scaling requires a shared filesystem
@@ -275,10 +362,6 @@ management:
     ##
     size: 100Mi
 
-  ## @param management.dnsDomain
-  ##
-  dnsDomain: netbird.selfhosted
-
   ## @param management.database leave empty to use sqlite
   ##
   database:
@@ -300,9 +383,9 @@ signal:
   ##
   logLevel: info
 
-  ## @param signal.uri
+  ## @param signal.port
   ##
-  uri: localhost:10000
+  port: 10000
 
   ## @param signal.protocol grpc, http, https
   ##
@@ -484,20 +567,18 @@ relay:
   ##
   logLevel: info
 
-  ## @param relay.domainName
-  ##
-  domainName: relay.example.com
+  ## @param relay.endpoint
+  endpoint: relay.example.com
 
-  auth:
-    secret:
-      # yamllint disable-line rule:line-length
-      ## @param relay.auth.secret.name See https://github.com/netbirdio/netbird/releases/tag/v0.29.0
-      ##
-      name: netbird-relay-secret
-      # yamllint disable-line rule:line-length
-      ## @param relay.auth.secret.key See https://github.com/netbirdio/netbird/releases/tag/v0.29.0
-      ##
-      key: netbird-relay-secret-key
+  secretKeyRef:
+    # yamllint disable-line rule:line-length
+    ## @param relay.secretKeyRef.name See https://github.com/netbirdio/netbird/releases/tag/v0.29.0
+    ##
+    name: netbird-relay
+    # yamllint disable-line rule:line-length
+    ## @param relay.secretKeyRef.key See https://github.com/netbirdio/netbird/releases/tag/v0.29.0
+    ##
+    key: secret
 
   ## @param relay.replicaCount
   ##

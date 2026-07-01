@@ -49,10 +49,11 @@ done
 
 ## NetBird
 
-Create the `netbird-relay-secret`:
+Create the secrets `netbird-relay` and `datastore`:
 
 ```shell
-kubectl create secret generic -n netbird netbird-relay-secret --from-literal=netbird-relay-secret-key=t0pS3cr37!
+kubectl create secret generic -n netbird datastore --from-literal=key=$(openssl rand -base64 32)
+kubectl create secret generic -n netbird netbird-relay --from-literal=secret=t0pS3cr37!
 ```
 
 Forward the NetBird management server to port `8081`:
