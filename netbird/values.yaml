@@ -46,7 +46,7 @@ idp:
 
   # Keycloak
   # yamllint disable-line rule:line-length
-  ## @param auth.tokenEndpoint the endpoint used by NetBird to fetch users from Keycloak
+  ## @param idp.adminEndpoint the endpoint used by NetBird to fetch users from Keycloak
   ##
   adminEndpoint: http://keycloak.localtest.me:9000/admin/realms/helm-charts
 
