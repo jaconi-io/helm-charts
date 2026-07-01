@@ -1,0 +1,32 @@
+---
+name: readme-generator-for-helm
+
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "**.md"
+      - "**.yml"
+      - "**.yaml"
+
+permissions:
+  contents: read
+
+jobs:
+  readme-generator-for-helm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install readme-generator-for-helm
+        run: npm install -g @bitnami/readme-generator-for-helm
+
+      - name: Execute readme-generator-for-helm
+        run: |
+          for f in */README.md; do
+            chart=$(dirname $f)
+            readme-generator --values "${chart}/values.yaml" --readme "$f"
+          done
