@@ -20,6 +20,12 @@ auth:
   ## @param auth.userIDClaim
   userIDClaim: sub
 
+  ## @param auth.redirect_uri
+  redirect_uri: /auth
+
+  ## @param auth.silent_redirect_uri
+  silent_redirect_uri: /silent-auth
+
 ## @section NetBird configuration
 
 netbird:
@@ -31,6 +37,10 @@ netbird:
 
   ## @param netbird.disableIPv6
   disableIPv6: true
+
+  ## @param netbird.token_source
+  ## In some setups, the id_token might be used instead of the access_token. In that case, set token_source to idToken.
+  token_source: ""
 
 ## @section Common configuration
 
@@ -86,16 +96,13 @@ defaultLabels: {}
 ## ref:
 ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param podSecurityContext
-podSecurityContext:
-  {}
-  # fsGroup: 2000
+podSecurityContext: {} # fsGroup: 2000
 
 ## Configure Container Security Context
 ## ref:
 ## https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ## @param securityContext
-securityContext:
-  {}
+securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -118,8 +125,7 @@ ingress:
   className: ""
 
   ## @param ingress.annotations
-  annotations:
-    {}
+  annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
 
@@ -140,8 +146,7 @@ ingress:
   #      - chart-example.local
 
 ## @param resources
-resources:
-  {}
+resources: {}
   # We usually recommend not to specify default resources and to leave this as a
   # conscious choice for the user. This also increases chances charts run on
   # environments with little resources, such as Minikube. If you do want to
@@ -166,7 +171,6 @@ autoscaling:
 
   ## @param autoscaling.targetCPUUtilizationPercentage
   targetCPUUtilizationPercentage: 80
-
   ## @param autoscaling.targetCPUUtilizationPercentage
   # targetMemoryUtilizationPercentage: 80
 
