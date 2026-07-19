@@ -57,7 +57,7 @@ spec:
               value: {{ .Values.auth.silent_redirect_uri }}
             {{- if .Values.netbird.token_source }}
             - name: NETBIRD_TOKEN_SOURCE
-              value: {{ .Values.netbird_token_source }}
+              value: {{ .Values.netbird.token_source }}
             {{- end }}
           ports:
             - name: http
