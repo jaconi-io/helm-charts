@@ -51,6 +51,14 @@ spec:
               value: {{ .Values.netbird.managementGrpcApiEndpoint }}
             - name: NGINX_SSL_PORT
               value: "443"
+            - name: AUTH_REDIRECT_URI
+              value: {{ .Values.auth.redirect_uri }}
+            - name: AUTH_SILENT_REDIRECT_URI
+              value: {{ .Values.auth.silent_redirect_uri }}
+            {{- if .Values.netbird.token_source }}
+            - name: NETBIRD_TOKEN_SOURCE
+              value: {{ .Values.netbird_token_source }}
+            {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
